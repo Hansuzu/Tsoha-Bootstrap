@@ -1,0 +1,54 @@
+\documentclass[12pt]{article}
+\usepackage{blindtext}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{tikz}
+\title{Dokumentaatio}
+
+
+\date{\today}
+\begin{document}
+  \maketitle
+  \newpage
+  \tableofcontents
+  \newpage
+
+  \section{Johdanto}
+    Tässä tietokantasovellus-harjoitustyössä tarkoituksenani on tehdä Wikipedian tyylinen järjestelmä, jossa käyttäjät voivat muokata artikkeleita eri aiheista. Jokaisesta artikkelista voi olla versio eri kielillä ja jokaiseen artikkeliin kuuluu keskustelusivu. Artikkelit muodostavat lisäksi verkon: Jokaisella artikkelilla voi olla joukko "yläartikkeleita", joiden aihepiiriin artikkeli kuuluu, ja "ala-artikkeleita", jotka kuuluvat artikkelin aihepiiriin.
+
+    Työ toteutetaan Helsingin yliopiston users-palvelimella. Kielinä käytetään PHP:ta ja MySQL:iä. Järjestelmää käytetään selaimella, jonka riittää tukea HTML:ää. Järjestelmä toimii yhdellä tietokannalla.
+  \newpage
+  \section{Käyttötapaukset}
+    \subsection{Käyttäjäryhmät}
+      \textbf{Jokamies} on kuka tahansa, joka käyttää järjestelmää. Jokamies voi lukea artikkeleita ja keskusteluja, mutta ei muokata artikkeleita eikä osallistua keskusteluun. Jokamies voi rekisteröityä käyttäjäksi ja tietysti kirjautua sisään, jos on rekisteröitynyt. Kaikki käyttäjäryhmät ovat myös jokamiehiä.\\ \\
+      \textbf{Käyttäjä} on kuka tahansa kirjautunut käyttäjä. Käyttäjällä on artikkeleihin muokkausoikeus ja mahdollisuus osallistua artikkelien keskusteluihin. Nämä oikeudet voidaan tosin myös poistaa käyttäjältä. \\ \\
+      \textbf{Moderaattori} on käyttäjä, jolla on lisäksi oikeus poistaa ja muokata muiden käyttäjien viestejä ja vaihtaa artikkelista näytettävää versiota versiopuusta. \\ \\
+      \textbf{Ylläpitäjä} on käyttäjä, jolla on moderointioikeuksien lisäksi oikeus muuttaa muiden käyttäjien oikeuksia, muokata kielitietokantaa.
+    \subsection{Käyttötapaukset}
+      \textbf{Jokamiehen käyttötapaukset:} \\
+        -Artikkeleiden lukeminen \\
+        -Artikkeleiden etsiminen hakutoiminnolla \\
+        -Rekisteröityminen \\
+        -Kirjautuminen \\ \\
+      \textbf{Käyttäjän käyttötapaukset:} \\
+        Jokamiehen käyttötapausten lisäksi:\\
+        -Artikkelin muokkaaminen: Artikkelista on mahdollista muokata erikielisiä versioita. Muokattaessa artikkelin yläluokka-artikkeleita on mahdollista lisätä ja poistaa. (Alaluokat määräytyvät sen perusteella, mistä artikkelista kyseinen artikkeli on lisätty yläluokaksi) \\
+        -Uuden artikkelin lisääminen \\
+        -Viestin kirjoittaminen artikkelin keskusteluun. \\
+        -Oman viestin muokkaaminen \\
+        -Oman viestin poistaminen \\ \\
+      \textbf{Moderaattorin käyttötapaukset:}\\
+        Käyttäjän käyttötapausten lisäksi:\\
+        -Artikkelin version vaihtaminen (versioksi on mahdollista vaihtaa myös "nollaversio", mikä vastaa artikkelin poistamista) \\
+        -Keskusteluissa muiden viestien muokkaaminen \\
+        -Keskusteluissa muiden viestien poistaminen \\
+      \textbf{Ylläpitäjän käyttötapaukset:}\\ \\
+        Moderaattorin käyttötapausten lisäksi:\\
+        -Muiden käyttäjien käyttöoikeuksien muuttaminen \\
+        -Kielitietokannan muokkaaminen \\
+        
+
+\end{document}
+\grid
+\grid
+\grid
