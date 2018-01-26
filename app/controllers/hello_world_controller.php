@@ -15,6 +15,9 @@
     public static function editPage(){
    	View::make('article_edit.html');
     }
+    public static function viewUser(){
+   	View::make('user.html');
+    }
     public static function signup(){
    	View::make('signup.html');
     }

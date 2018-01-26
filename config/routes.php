@@ -13,6 +13,9 @@
   $routes->get('/page/edit', function() {
     HelloWorldController::editPage();
   });
+  $routes->get('/user', function() {
+    HelloWorldController::viewUser();
+  });
   
   $routes->get('/signup', function() {
     HelloWorldController::signup();

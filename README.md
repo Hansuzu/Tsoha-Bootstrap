@@ -17,3 +17,4 @@ Tarkoituksena on luoda wikipedian kaltainen sivusto, jossa on käyttäjiä eri o
 [Artikkelisivu](https://haih.users.helsinki.fi/tsoh/page/)
 [Artikkelin muokkaussivu](https://haih.users.helsinki.fi/tsoh/page/edit/)
 [Artikkelin keskustelusivu](https://haih.users.helsinki.fi/tsoh/page/discussion/)
+[Käyttäjä](https://haih.users.helsinki.fi/tsoh/user/)
