@@ -1,45 +1,44 @@
 -- Lisää CREATE TABLE lauseet tähän tiedostoon
 
+CREATE TABLE Person(
+    id SERIAL PRIMARY KEY NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    pword VARCHAR(50) NOT NULL,
+    created TIMESTAMP NOT NULL
+);
 CREATE TABLE AbstractArticle(
-    id SERIAL PRIMARY_KEY NOT NULL
+    id SERIAL PRIMARY KEY NOT NULL
 );
 
 CREATE TABLE Language(
-    id SERIAL PRIMARY_KEY NOT NULL,
+    id SERIAL PRIMARY KEY NOT NULL,
     name VARCHAR(50) NOT NULL
 );
 
-
 CREATE TABLE Article(
-    id SERIAL PRIMARY_KEY NOT NULL,
-    abstract_id INTEGER FOREIGN_KEY NOT NULL,
-    language_id INTEGER FOREIGN_KEY NOT NULL,
+    id SERIAL PRIMARY KEY NOT NULL,
+    abstract_id INT REFERENCES AbstractArticle(id) NOT NULL,
+    language_id INT REFERENCES Language(id) NOT NULL,
     name VARCHAR(50) NOT NULL
 );
 CREATE TABLE ArticleVersion(
-    id SERIAL PRIMARY_KEY NOT NULL,
-    article_id INTEGER FOREIGN_KEY NOT NULL,
-    parent_id INTEGER FOREIGN_KEY NOT NULL,
-    user_id INTEGER FOREIGN_KEY NOT NULL,
+    id SERIAL PRIMARY KEY NOT NULL,
+    article_id INT REFERENCES Article(id) NOT NULL,
+    parent_id INT REFERENCES ArticleVersion(id) NOT NULL,
+    user_id INT REFERENCES Person(id) NOT NULL,
     time TIMESTAMP NOT NULL,
     contents TEXT NOT NULL
 );
 CREATE TABLE ArticleSuperclass(
-    subarticle_id INTEGER FOREIGN_KEY NOT NULL,
-    suparticle_id INTEGER FOREIGN_KEY NOT NULL
+    subarticle_id INT REFERENCES ArticleVersion(id) NOT NULL,
+    suparticle_id INT REFERENCES ArticleVersion(id) NOT NULL
 );
 CREATE TABLE Message(
-    id SERIAL PRIMARY_KEY NOT NULL,
-    article_id INTEGER FOREIGN_KEY NOT NULL,
-    user_id INTEGER FOREIGN_KEY NOT NULL,
+    id SERIAL PRIMARY KEY NOT NULL,
+    article_id INT REFERENCES Article(id) NOT NULL,
+    user_id INT REFERENCES Person(id) NOT NULL,
     message TEXT NOT NULL,
-    time DATETIME NOT NULL,
+    time TIMESTAMP NOT NULL,
     edited TIMESTAMP NOT NULL
-);
-CREATE TABLE Person(
-    id SERIAL PRIMARY_KEY NOT NULL,
-    username VARCHAR(50) NOT NULL,
-    email VARCHAR(50) NOT NULL,
-    pword VARCHAR(50) NOT NULL,
-    created DATETIME NOT NULL
 );

@@ -15,7 +15,7 @@ Table(Person){
     username VARCHAR 50
     email VARCHAR 50
     pword VARCHAR 50
-    created DATETIME
+    created TIMESTAMP
 }
 
 
@@ -40,7 +40,7 @@ Table(Message){
     foreign_key(article_id) INTEGER
     foreign_key(user_id) user
     message TEXT
-    time DATETIME
+    time TIMESTAMP
     edited TIMESTAMP
 }
 
