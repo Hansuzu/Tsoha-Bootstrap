@@ -1,10 +1,49 @@
+
 #main-container{
-  max-width: 1200px;
-  padding: 10px 25px;
-  margin: 0px auto;
+    max-width: 100%;
+    padding: 0px;
+    margin: 0px auto;
 }
 
 .navbar .container-fluid{
-  max-width: 1200px;
-  margin: 0px auto;
+    max-width: 1200px;
+    margin: 0px auto;
+    margin-bottom: 0px;
+}
+
+.navc{
+    padding: 15px;
+    padding-left: 20px;
+}
+
+html{
+    min-height:100%;/* make sure it is at least as tall as the viewport */
+    position:relative;
+}
+body{
+    height:100%; /* force the BODY element to match the height of the HTML element */
+}
+
+.left-bar{
+    min-height: 100vh;
+    margin-bottom: 0px;
+    top:0;
+    bottom:0;
+    left:0;
+    position: fixed;
+}
+.lol-left{
+    float:left;
+    margin-left: 50px;
+    
+}
+.center{
+  margin-left: auto;
+  margin-right: auto;
+  height: 100%;
+  width: 500px;
+  padding: 20px;
+}
+.down{
+  padding-top: 200px;
 }

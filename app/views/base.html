@@ -7,7 +7,7 @@
 
     <title>
       {% block title %}
-        Tietokantasovellus
+        PeeloiluPedia
       {% endblock %}
     </title>
 
@@ -22,28 +22,44 @@
 
   <body>
 
-    <nav class="navbar navbar-default" role="navigation">
-      <div class="container-fluid">
+    <div class="navbar navbar-default navbar-left left-bar">
+        <!--class="navbar navbar-default lolnavbar"-->
+        <nav role="navigation">
+            <div class="container-fluid">
+                <div class="avbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    
+                    <!-- Sovelluksen nimi -->
+                    <a class="navbar-brand" href="{{base_path}}">
+                        <h2>PeeloiluPedia</h2>
+                        <i>Siisti :3 wikisivusto</i>
+                    </a>
+                </div><br><br><br><br><br>
+                <hr>
 
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <!-- Sovelluksen nimi -->
-          <a class="navbar-brand" href="{{base_path}}">Tsoha Bootstrap</a>
+                <div class="collapse navbar-collapse" id="navigation">
+                    <ul class="nav navbar-nav">
+                        <!-- Navigaation linkit -->
+                        <li><a href="{{base_path}}">Etusivu</a></li><br><br><br>
+                        <li><a href="{{base_path}}/page">Artikkelit</a></li><br><br><br>
+                        <li><a href="{{base_path}}/signup">Rekisteröidy</a></li><br><br><br>
+                        <li><a href="{{base_path}}/login">Kirjaudu sisään</a></li><br><br><br>
+                    </ul>
+                </div>
+                
+            </div>
+        </nav>
+        <div class="navc"><hr>
+            {% block leftbar %}
+            {% endblock %}
         </div>
-
-        <div class="collapse navbar-collapse" id="navigation">
-          <ul class="nav navbar-nav">
-            <!-- Navigaation linkit -->
-            <li><a href="{{base_path}}">Etusivu</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    </div>
+    
 
     <div id="main-container">
       <!-- Dynaaminen sisältö tulee tähän -->
