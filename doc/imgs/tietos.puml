@@ -1,0 +1,17 @@
+@startuml
+
+object Käyttäjä
+object Artikkeli
+object ArtikkeliVersio
+object Viesti
+object AbstraktiArtikkeli
+object Kieli
+
+Kieli "1" -- "*" Artikkeli
+AbstraktiArtikkeli "1" *-- "*" Artikkeli
+Artikkeli "1" --* "*" ArtikkeliVersio
+Artikkeli "*" -- "*" Artikkeli : Artikkelin ylä- ja ala-artikkeli-suhteet
+Artikkeli "1" --* "*" Viesti
+Viesti "*" -- "1" Käyttäjä
+ArtikkeliVersio "*" -- "1" Käyttäjä
+@enduml

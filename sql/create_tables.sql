@@ -1,1 +1,45 @@
 -- Lisää CREATE TABLE lauseet tähän tiedostoon
+
+CREATE TABLE AbstractArticle{
+    id SERIAL PRIMARY_KEY NOT NULL
+};
+
+CREATE TABLE Language{
+    id SERIAL PRIMARY_KEY NOT NULL,
+    name VARCHAR(50) NOT NULL
+};
+
+
+CREATE TABLE Article{
+    id SERIAL PRIMARY_KEY NOT NULL,
+    abstract_id INTEGER FOREIGN_KEY NOT NULL,
+    language_id INTEGER FOREIGN_KEY NOT NULL,
+    name VARCHAR(50) NOT NULL
+};
+CREATE TABLE ArticleVersion{
+    id SERIAL PRIMARY_KEY NOT NULL,
+    article_id INTEGER FOREIGN_KEY NOT NULL,
+    parent_id INTEGER FOREIGN_KEY NOT NULL,
+    user_id INTEGER FOREIGN_KEY NOT NULL,
+    time TIMESTAMP NOT NULL,
+    contents TEXT NOT NULL
+};
+CREATE TABLE ArticleSuperclass{
+    subarticle_id INTEGER FOREIGN_KEY NOT NULL,
+    suparticle_id INTEGER FOREIGN_KEY NOT NULL
+};
+CREATE TABLE Message{
+    id SERIAL PRIMARY_KEY NOT NULL,
+    article_id INTEGER FOREIGN_KEY NOT NULL,
+    user_id INTEGER FOREIGN_KEY NOT NULL,
+    message TEXT NOT NULL,
+    time DATETIME NOT NULL,
+    edited TIMESTAMP NOT NULL
+};
+CREATE TABLE Person{
+    id SERIAL PRIMARY_KEY NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    pword VARCHAR(50) NOT NULL,
+    created DATETIME NOT NULL
+};

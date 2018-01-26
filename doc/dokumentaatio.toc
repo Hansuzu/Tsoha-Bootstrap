@@ -2,3 +2,5 @@
 \contentsline {section}{\numberline {2}K\IeC {\"a}ytt\IeC {\"o}tapaukset}{4}
 \contentsline {subsection}{\numberline {2.1}K\IeC {\"a}ytt\IeC {\"a}j\IeC {\"a}ryhm\IeC {\"a}t}{4}
 \contentsline {subsection}{\numberline {2.2}K\IeC {\"a}ytt\IeC {\"o}tapaukset}{4}
+\contentsline {section}{\numberline {3}J\IeC {\"a}rjestelm\IeC {\"a}n tietosis\IeC {\"a}lt\IeC {\"o}}{5}
+\contentsline {section}{\numberline {4}Relaatiotietokantakaavio}{8}

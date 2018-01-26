@@ -2,8 +2,10 @@
 \usepackage{blindtext}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
-\usepackage{tikz}
-\title{Dokumentaatio}
+\usepackage{graphicx}
+\graphicspath{ {imgs/} }
+
+\title{Tietokantasovellus-harjoitustyön dokumentaatio}
 
 
 \date{\today}
@@ -18,6 +20,7 @@
 
     Työ toteutetaan Helsingin yliopiston users-palvelimella. Kielinä käytetään PHP:ta ja MySQL:iä. Järjestelmää käytetään selaimella, jonka riittää tukea HTML:ää. Järjestelmä toimii yhdellä tietokannalla.
   \newpage
+
   \section{Käyttötapaukset}
     \subsection{Käyttäjäryhmät}
       \textbf{Jokamies} on kuka tahansa, joka käyttää järjestelmää. Jokamies voi lukea artikkeleita ja keskusteluja, mutta ei muokata artikkeleita eikä osallistua keskusteluun. Jokamies voi rekisteröityä käyttäjäksi ja tietysti kirjautua sisään, jos on rekisteröitynyt. Kaikki käyttäjäryhmät ovat myös jokamiehiä.\\ \\
@@ -41,11 +44,112 @@
         Käyttäjän käyttötapausten lisäksi:\\
         -Artikkelin version vaihtaminen (versioksi on mahdollista vaihtaa myös "nollaversio", mikä vastaa artikkelin poistamista) \\
         -Keskusteluissa muiden viestien muokkaaminen \\
-        -Keskusteluissa muiden viestien poistaminen \\
-      \textbf{Ylläpitäjän käyttötapaukset:}\\ \\
+        -Keskusteluissa muiden viestien poistaminen \\ \\
+      \textbf{Ylläpitäjän käyttötapaukset:}\\
         Moderaattorin käyttötapausten lisäksi:\\
         -Muiden käyttäjien käyttöoikeuksien muuttaminen \\
         -Kielitietokannan muokkaaminen \\
+
+
+  \section{Järjestelmän tietosisältö}
+        \textbf{Käsitekaavio:} \\
+        \makebox[\textwidth]{\includegraphics[width={\textwidth}]{tietos.png}} \newpage
+
+        \textbf{Tietokohde:AbstraktiArtikkeli} \\
+        AbstraktiArtikkeli on jokin tietty aihe (käytännössä vain id), josta voi olla erikielisiä artikkeleita. Jokainen artikkeli on linkitetty johonkin AbstraktiArtikkeliin. Samaan AbstraktiArtikkeliin linkitetyt erikieliset artikkelit tulkitaan olevan samasta aiheesta tehtyjä erikielisiä versioita. Jos samaan AbstraktiArtikkeliin on linkitetty kaksi samankielistä artikkelia, näiden tulkitaan olevan päällekkäinen versio samasta aiheesta. \\ \\
+        \textbf{Tietokohde:Artikkeli}\\
+        \begin{tabular}{|p{8em}|p{8em}|p{13em}|} \hline
+            \textbf{Attribuutti} & \textbf{Arvojoukko} & \textbf{Kuvailu} \\ \hline
+                    abstraktiArtikkeli
+                &   AbstraktiArtikkeli
+                &   Artikkelin "aihe".
+            \\ \hline
+                    kieli
+                &   Kieli
+                &   Kieli, millä artikkeli on kirjoitettu
+            \\ \hline
+                    nimi
+                &   merkkijono
+                &   Artikkelin nimi
+            \\ \hline
+        \end{tabular} \\ \\ \\
+
+        \textbf{Tietokohde:ArtikkeliVersio} \\
+        \begin{tabular}{|p{8em}|p{8em}|p{13em}|} \hline
+            \textbf{Attribuutti} & \textbf{Arvojoukko} & \textbf{Kuvailu} \\ \hline
+                    artikkeli
+                &   Artikkeli
+                &   Tunniste, minkä artikkelin versio tämä on
+            \\ \hline
+                    edellinenVersio
+                &   ArtikkeliVersio
+                &   Tunniste, mikä on edellinen versio tästä artikkelista
+            \\ \hline
+                    luoja
+                &   Käyttjää
+                &   Käyttäjä, joka on luonut tämän version artikkelista
+            \\ \hline
+                    Teksti
+                &   merkkijono
+                &   Artikkelin teksti
+            \\ \hline
+        \end{tabular} \\ \\ \\
+
+        \textbf{Tietokohde:Kieli} \\
+        \begin{tabular}{|p{8em}|p{8em}|p{13em}|} \hline
+            \textbf{Attribuutti} & \textbf{Arvojoukko} & \textbf{Kuvailu} \\ \hline
+                    nimi
+                &   merkkijono
+                &   Kielen nimi
+            \\ \hline
+        \end{tabular} \\ \\ \\
+
+        \textbf{Tietokohde:Kieli} \\
+        \begin{tabular}{|p{8em}|p{8em}|p{13em}|} \hline
+            \textbf{Attribuutti} & \textbf{Arvojoukko} & \textbf{Kuvailu} \\ \hline
+                    nimi
+                &   merkkijono
+                &   Kielen nimi
+            \\ \hline
+        \end{tabular} \\ \\ \\
+
+        \textbf{Tietokohde:Viesti} \\
+        \begin{tabular}{|p{8em}|p{8em}|p{13em}|} \hline
+            \textbf{Attribuutti} & \textbf{Arvojoukko} & \textbf{Kuvailu} \\ \hline
+                    artikkeli
+                &   Artikkeli
+                &   Artikkeli, jonka keskusteluun viesti on jätetty
+            \\ \hline
+                    kirjoittaja
+                &   Käyttäjä
+                &   Viestin kirjoittanut käyttäjä
+            \\ \hline
+                    viesti
+                &   merkkijono
+                &   Viestin sisältö
+            \\ \hline
+        \end{tabular} \\ \\ \\
+
+
+        \textbf{Tietokohde:Käyttäjä} \\
+        \begin{tabular}{|p{8em}|p{8em}|p{13em}|} \hline
+            \textbf{Attribuutti} & \textbf{Arvojoukko} & \textbf{Kuvailu} \\ \hline
+                    käyttäjänimi
+                &   merkkijono
+                &   Uniikki käyttäjänimi
+            \\ \hline
+                    sähköposti
+                &   merkkijono
+                &   sähköpostiosoite
+            \\ \hline
+                    salasana
+                &   merkkijono
+                &   salasanan tiiviste
+            \\ \hline
+        \end{tabular} \\ \\ \\
+  \section{Relaatiotietokantakaavio}
+        \makebox[\textwidth]{\includegraphics[width={\textwidth}]{relt.png}} \\
+        Tietosisällön käsitekaavioon verrattuna relaatiotietokantakaavioon on lisätty article\_superclass, jota käsitekaaviossa mallintaa yhteys artikkelista itseensä.
         
 
 \end{document}

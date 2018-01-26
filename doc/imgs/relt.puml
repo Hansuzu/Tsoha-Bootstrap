@@ -1,0 +1,72 @@
+@startuml
+!define Table(name) class name as "name" << (T,#FFDDDD) >>
+!define primary_key(x) <b>x</b> <<PK>>
+!define foreign_key(x) <b>x</b> <<FK>>
+!define unique(x) <color:green>x</color>
+!define not_null(x) <u>x</u>
+
+hide methods
+hide stereotypes
+
+
+
+Table(Person){
+    primary_key(id) SERIAL
+    username VARCHAR 50
+    email VARCHAR 50
+    pword VARCHAR 50
+    created DATETIME
+}
+
+
+Table(Article) {
+    primary_key(id) SERIAL
+    foreign_key(absract_id) INTEGER
+    foreign_key(language_id) INTEGER
+    name VARCHAR 50
+}
+Table(ArticleVersion){
+    primary_key(id) SERIAL
+    foreign_key(article_id) INTEGER
+    foreign_key(parent_id) INTEGER
+    foreign_key(user_id) INTEGER
+    time TIMESTAMP
+    contents TEXT
+}
+
+
+Table(Message){
+    primary_key(id) SERIAL
+    foreign_key(article_id) INTEGER
+    foreign_key(user_id) user
+    message TEXT
+    time DATETIME
+    edited TIMESTAMP
+}
+
+Table(ArticleSuperclass){
+    foreign_key(subarticle_id) INTEGER
+    foreign_key(suparticle_id) INTEGER
+}
+
+Table(AbstractArticle) {
+    primary_key(id) SERIAL
+}
+
+Table(Language) {
+    primary_key(id) SERIAL
+    name VARCHAR 50
+}
+
+
+Language <-- Article
+AbstractArticle <-- Article
+Article <-- ArticleVersion 
+Article <-- Message
+Message --> Person
+ArticleVersion --> Person
+ArticleVersion --> ArticleVersion
+
+Article <-- ArticleSuperclass
+
+@enduml
