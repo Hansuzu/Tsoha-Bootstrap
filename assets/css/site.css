@@ -30,12 +30,26 @@ body{
     top:0;
     bottom:0;
     left:0;
-    position: fixed;
 }
 .lol-left{
     float:left;
     margin-left: 50px;
     
+}
+
+.messagebox{
+    width: 600px;
+    background-color: #eeeeee;
+    opacity: 0.8;
+    padding: 10px;
+    margin: 5px;
+}
+
+.message{
+    width: 98%;
+    background-color: #ffffff;
+    padding: 5px;
+    border: 1px solid #555;
 }
 .center{
   margin-left: auto;
@@ -46,4 +60,7 @@ body{
 }
 .down{
   padding-top: 200px;
+}
+.bit-down{
+  padding-top: 40px;
 }

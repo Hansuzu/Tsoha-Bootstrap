@@ -6,7 +6,30 @@
 
 {% block content %}
   <div class="lol-left">
-    <h1>(Artikkelin keskustelusivu)</h1>
+        <h1>(Artikkelin keskustelusivu)</h1>
+        <div class="messagebox">
+            <b>User kirjoitti</b>
+            <div class="message">
+                Viesti lolo <br><br> Jotain.
+            </div>
+        </div>
+        <div class="messagebox">
+            <b>User2 kirjoitti</b>
+            <div class="message">
+                Lorem <br>ipsum<br>Panem nostrum cotidianum da nobis hodie<br>
+                et dimitte nobis debita nostra sicut et nos dibittimus debitoribus nostrim
+            </div>
+        </div>
+        <div class="messagebox">
+            <b>Kirjoita viesti</b>
+            <div class="message">
+                <form>
+                    <textarea name="suparticles" rows=5 cols=50></textarea><br>
+                    <button type="submit"> Lähetä </button>
+                </form>
+            </div>
+        </div>
+        
   </div>
   
 {% endblock %}
