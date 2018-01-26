@@ -50,10 +50,10 @@
         -Muiden käyttäjien käyttöoikeuksien muuttaminen \\
         -Kielitietokannan muokkaaminen \\
 
-
+  \newpage
   \section{Järjestelmän tietosisältö}
         \textbf{Käsitekaavio:} \\
-        \makebox[\textwidth]{\includegraphics[width={\textwidth}]{tietos.png}} \newpage
+        \makebox[\textwidth]{\includegraphics[width={\textwidth}]{tietos.png}}
 
         \textbf{Tietokohde:AbstraktiArtikkeli} \\
         AbstraktiArtikkeli on jokin tietty aihe (käytännössä vain id), josta voi olla erikielisiä artikkeleita. Jokainen artikkeli on linkitetty johonkin AbstraktiArtikkeliin. Samaan AbstraktiArtikkeliin linkitetyt erikieliset artikkelit tulkitaan olevan samasta aiheesta tehtyjä erikielisiä versioita. Jos samaan AbstraktiArtikkeliin on linkitetty kaksi samankielistä artikkelia, näiden tulkitaan olevan päällekkäinen versio samasta aiheesta. \\ \\
@@ -146,7 +146,9 @@
                 &   merkkijono
                 &   salasanan tiiviste
             \\ \hline
-        \end{tabular} \\ \\ \\
+        \end{tabular}
+  \newpage
+
   \section{Relaatiotietokantakaavio}
         \makebox[\textwidth]{\includegraphics[width={\textwidth}]{relt.png}} \\
         Tietosisällön käsitekaavioon verrattuna relaatiotietokantakaavioon on lisätty article\_superclass, jota käsitekaaviossa mallintaa yhteys artikkelista itseensä.

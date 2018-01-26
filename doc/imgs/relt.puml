@@ -15,6 +15,10 @@ Table(Person){
     username VARCHAR 50
     email VARCHAR 50
     pword VARCHAR 50
+    is_admin BIT 1
+    is_moderator BIT 1
+    edit_allowed BIT 1
+    messages_allowed BIT 1
     created TIMESTAMP
 }
 
@@ -23,8 +27,10 @@ Table(Article) {
     primary_key(id) SERIAL
     foreign_key(absract_id) INTEGER
     foreign_key(language_id) INTEGER
+    readonly BIT 1
     name VARCHAR 50
 }
+
 Table(ArticleVersion){
     primary_key(id) SERIAL
     foreign_key(article_id) INTEGER

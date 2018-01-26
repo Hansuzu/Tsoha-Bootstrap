@@ -5,6 +5,10 @@ CREATE TABLE Person(
     username VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
     pword VARCHAR(50) NOT NULL,
+    is_admin BIT(1) NOT NULL,
+    is_moderator BIT(1) NOT NULL,
+    edit_allowed BIT(1) NOT NULL,
+    messages_allowed BIT(1) NOT NULL,
     created TIMESTAMP NOT NULL
 );
 CREATE TABLE AbstractArticle(
@@ -20,6 +24,7 @@ CREATE TABLE Article(
     id SERIAL PRIMARY KEY NOT NULL,
     abstract_id INT REFERENCES AbstractArticle(id) NOT NULL,
     language_id INT REFERENCES Language(id) NOT NULL,
+    readonly BIT(1) NOT NULL,
     name VARCHAR(50) NOT NULL
 );
 CREATE TABLE ArticleVersion(
