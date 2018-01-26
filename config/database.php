@@ -18,7 +18,7 @@
       'mysql' => array(
         'resource' => 'mysql:unix_socket=/home/haih/mysql/socket;dbname=mysql',
         'username' => 'root',
-        'password' => '1234'
+        'password' => 'QAQ'
       )
     );
 
