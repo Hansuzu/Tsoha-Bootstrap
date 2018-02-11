@@ -11,6 +11,7 @@ CREATE TABLE Person(
     messages_allowed BIT(1) NOT NULL,
     created TIMESTAMP NOT NULL
 );
+
 CREATE TABLE AbstractArticle(
     id SERIAL PRIMARY KEY NOT NULL
 );
@@ -27,18 +28,22 @@ CREATE TABLE Article(
     readonly BIT(1) NOT NULL,
     name VARCHAR(50) NOT NULL
 );
+
 CREATE TABLE ArticleVersion(
     id SERIAL PRIMARY KEY NOT NULL,
     article_id INT REFERENCES Article(id) NOT NULL,
     parent_id INT REFERENCES ArticleVersion(id),
     user_id INT REFERENCES Person(id) NOT NULL,
     time TIMESTAMP NOT NULL,
+    active BIT(1) NOT NULL, 
     contents TEXT NOT NULL
 );
+
 CREATE TABLE ArticleSuperclass(
     subarticle_id INT REFERENCES Article(id) NOT NULL,
     suparticle_id INT REFERENCES Article(id) NOT NULL
 );
+
 CREATE TABLE Message(
     id SERIAL PRIMARY KEY NOT NULL,
     article_id INT REFERENCES Article(id) NOT NULL,
