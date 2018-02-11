@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block leftbar %}
+    <b>Kielet:</b><br>
+{% endblock %}
+
+{% block content %}
+  <div class="lol-left">
+    <h1>Artikkeleiden confuusio-sivu</h1>
+    <h2>(eli jotakin meni pieleen...)</h2>
+    {% if articles %}
+        Artikkelien päällekkäisyysongelma <br>
+        {% for article in articles %}
+            <a href="{{base_path}}/page/{{article.language.shortcode}}/{{article.name}}/{{article.id}}">{{article.name}}</a><br>
+            
+        {% endfor %}
+    {% else %}
+        Artikkelia ei ole olemassa.
+    {% endif %}
+  </div>
+  
+{% endblock %}

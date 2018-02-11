@@ -5,8 +5,12 @@
 
 {% block content %}
   <div class="lol-left">
-    <h1>(Käyttäjä)</h1>
-    (Tullaan lataamaan tietokannasta...) <br>
+    {% if person %}
+        <h1>{{person.username}}</h1>
+        Rekisteröitynyt: {{person.created}}
+    {% else %}
+        <h1>Käyttäjää ei löydy</h1>
+    {% endif %}
   </div>
   
 {% endblock %}

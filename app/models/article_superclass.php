@@ -11,9 +11,8 @@ class ArticleSuperclass extends BaseModel{
         $query->execute();
         $rows=$query->fetchAll();
         $superclasses=array();
-        foreach($rows as $row){
-            $superclasses[] = new ArticleSuperclass(array("subarticle_id"=>$row["subarticle_id"], 
-                                        "suparticle_id"=>$row["suparticle_id"]));
+        foreach ($rows as $row) {
+            $superclasses[] = new ArticleSuperclass(array("subarticle_id"=>$row["subarticle_id"], "suparticle_id"=>$row["suparticle_id"]));
         }
         return $superclasses;
     }
@@ -21,11 +20,10 @@ class ArticleSuperclass extends BaseModel{
     public static function findSupArticles($article_id){
         $query=DB::connection()->prepare("SELECT * FROM ArticleSuperclass WHERE suparticle_id=:suparticle_id");
         $query->execute(array("suparticle_id" => $suparticle_id));
-        $row=$query->fetchAll();
+        $rows=$query->fetchAll();
         $superclasses=array();
-        foreach($rows as $row){
-            $superclasses[] = new ArticleSuperclass(array("subarticle_id"=>$row["subarticle_id"], 
-                                        "suparticle_id"=>$row["suparticle_id"]));
+        foreach ($rows as $row) {
+            $superclasses[] = new ArticleSuperclass(array("subarticle_id"=>$row["subarticle_id"], "suparticle_id"=>$row["suparticle_id"]));
         }
         return $superclasses;
     }
@@ -33,11 +31,10 @@ class ArticleSuperclass extends BaseModel{
     public static function findSubArticles($article_id){
         $query=DB::connection()->prepare("SELECT * FROM ArticleSuperclass WHERE subarticle_id=:subarticle_id");
         $query->execute(array("subarticle_id" => $subarticle_id));
-        $row=$query->fetchAll();
+        $rows=$query->fetchAll();
         $superclasses=array();
-        foreach($rows as $row){
-            $superclasses[] = new ArticleSuperclass(array("subarticle_id"=>$row["subarticle_id"], 
-                                        "suparticle_id"=>$row["suparticle_id"]));
+        foreach ($rows as $row) {
+            $superclasses[] = new ArticleSuperclass(array("subarticle_id"=>$row["subarticle_id"], "suparticle_id"=>$row["suparticle_id"]));
         }
         return $superclasses;
     }

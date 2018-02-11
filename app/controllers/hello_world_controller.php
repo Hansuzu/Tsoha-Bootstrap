@@ -1,11 +1,11 @@
 <?php
 
-  class HelloWorldController extends BaseController{
+class HelloWorldController extends BaseController{
 
     public static function index(){
         View::make('home.html');
     }
-    
+
     public static function page(){
         View::make('article.html');
     }
@@ -25,10 +25,9 @@
         View::make('login.html');
     }
 
-
     public static function sandbox(){
         // Testaa koodiasi täällä
         $p=Person::findByUsername("lol");
         Kint::dump($p);
     }
-  }
+}

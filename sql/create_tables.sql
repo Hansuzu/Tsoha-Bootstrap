@@ -2,8 +2,8 @@
 
 CREATE TABLE Person(
     id SERIAL PRIMARY KEY NOT NULL,
-    username VARCHAR(50) NOT NULL,
-    email VARCHAR(50) NOT NULL,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(50) NOT NULL UNIQUE,
     pword VARCHAR(50) NOT NULL,
     is_admin BIT(1) NOT NULL,
     is_moderator BIT(1) NOT NULL,
@@ -18,7 +18,8 @@ CREATE TABLE AbstractArticle(
 
 CREATE TABLE Language(
     id SERIAL PRIMARY KEY NOT NULL,
-    name VARCHAR(50) NOT NULL
+    name VARCHAR(50) NOT NULL UNIQUE,
+    shortcode VARCHAR(50) NOT NULL UNIQUE
 );
 
 CREATE TABLE Article(

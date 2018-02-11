@@ -2,14 +2,18 @@
 
 {% block leftbar %}
     <b>Kielet:</b><br>
+    {% for version in versions %}
+        {% set language = version.language %}
+        <a href="{{base_path}}/page/{{version.language.shortcode}}/{{version.name}}/{{version.id}}">{{version.language.name}}</a><br>
+    {% endfor %}
 {% endblock %}
 
 {% block content %}
   <div class="lol-left">
-    <h1>(Artikkeli)</h1>
-    (Tullaan lataamaan tietokannasta...) <br>
-    ks myös <a href="{{base_path}}/page/discussion">Keskustelusivu</a> <br>
-    ja <a href="{{base_path}}/page/edit">Muokkaussivu</a> <br>
+    <h1>{{article.name}}</h1>
+    <i>{{article.info}}</i>
+    <br>
+    {{article.version.contents}}
   </div>
   
 {% endblock %}

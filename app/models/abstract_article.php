@@ -10,12 +10,20 @@ class AbstractArticle extends BaseModel{
         $rows=$query->fetchAll();
         $articles=array();
         foreach($rows as $row){
-            $articles[] = new Article(array("id"=>$row["id"]);
+            $articles[] = new AbstractArticle(array("id"=>$row["id"]);
         }
         return $articles;
     }
+    public static function findById($id){
+        $query=DB::connection()->prepare("SELECT * FROM AbstractArticle WHERE id=:id LIMIT 1");
+        $query->execute(array("id"=>$id));
+        $row=$query->fetch();
+        if ($row){
+            $article = new AbstractArticle(array("id"=>$row["id"]);
+            return $article;
+        
+        }
+        return null;    
+    }
 }
-
-
-
 ?>
