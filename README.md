@@ -14,7 +14,9 @@ Tarkoituksena on luoda wikipedian kaltainen sivusto, jossa on käyttäjiä eri o
 [Etusivu](https://haih.users.helsinki.fi/tsoh/)
 [Kirjautumissivu](https://haih.users.helsinki.fi/tsoh/login/)
 [Rekisteröitymissivu](https://haih.users.helsinki.fi/tsoh/signup/)
-[Artikkelisivu](https://haih.users.helsinki.fi/tsoh/page/)
+[Artikkelihakusivu](https://haih.users.helsinki.fi/tsoh/page/)
+[Artikkelisivu](https://haih.users.helsinki.fi/tsoh/page/agg/diipadaapa)
 [Artikkelin muokkaussivu](https://haih.users.helsinki.fi/tsoh/page/edit/)
 [Artikkelin keskustelusivu](https://haih.users.helsinki.fi/tsoh/page/discussion/)
-[Käyttäjä](https://haih.users.helsinki.fi/tsoh/user/)
+[Käyttäjä](https://haih.users.helsinki.fi/tsoh/user/lol)
+
