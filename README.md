@@ -13,17 +13,17 @@ Tarkoituksena on luoda wikipedian kaltainen sivusto, jossa on käyttäjiä eri o
 
 [Etusivu](https://haih.users.cs.helsinki.fi/tsoh/)
 
-[Kirjautumissivu](https://haih.users.cs.helsinki.fi/tsoh/login/)
+[Kirjautumissivu](https://haih.users.cs.helsinki.fi/tsoh/login)
 
-[Rekisteröitymissivu](https://haih.users.cs.helsinki.fi/tsoh/signup/)
+[Rekisteröitymissivu](https://haih.users.cs.helsinki.fi/tsoh/signup)
 
-[Artikkelihakusivu](https://haih.users.cs.helsinki.fi/tsoh/page/)
+[Artikkelihakusivu](https://haih.users.cs.helsinki.fi/tsoh/page) (kannattaa hakea esim. diipadaapa)
 
-[Artikkelisivu](https://haih.users.cs.helsinki.fi/tsoh/page/agg/diipadaapa)
+[Artikkelisivu](https://haih.users.cs.helsinki.fi/tsoh/page/abb/diipadaapa) (diipadaapa sivu)
 
-[Artikkelin muokkaussivu](https://haih.users.cs.helsinki.fi/tsoh/page/edit/)
+[Artikkelin muokkaussivu](https://haih.users.cs.helsinki.fi/tsoh/page/edit) (Ei vielä mitään)
 
-[Artikkelin keskustelusivu](https://haih.users.cs.helsinki.fi/tsoh/page/discussion/)
+[Artikkelin keskustelusivu](https://haih.users.cs.helsinki.fi/tsoh/page/discussion) (Ei vielä mitään)
 
-[Käyttäjä](https://haih.users.cs.helsinki.fi/tsoh/user/lol)
+[Käyttäjä](https://haih.users.cs.helsinki.fi/tsoh/user/lol) 
 
