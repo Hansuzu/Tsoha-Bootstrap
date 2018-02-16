@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block leftbar %}
-    <b>Kielet:</b><br>
+    <b>Languages:</b><br>
     {% for version in versions %}
         <a href="{{base_path}}/page/view/{{version.language.shortcode}}/{{version.name}}/{{version.id}}">{{version.language.name}}</a><br>
     {% endfor %}
@@ -9,20 +9,21 @@
 
 {% block content %}
   <div class="lol-left">
-    <a href="{{base_path}}/page/edit/{{article.version.id}}">Muokkaa</a> | 
-    <a href="{{base_path}}/page/new">Uusi artikkeli</a>  | 
-    <a href="{{base_path}}/page/new/{{article.abstract_id}}">Uusi artikkeli tästä aiheesta toisella kielellä</a>
+    <a href="{{base_path}}/page/edit/{{article.version.id}}">Edit</a> | 
+    <a href="{{base_path}}/page/new">New article</a>  | 
+    <a href="{{base_path}}/page/new/{{article.abstract_id}}">New article about this topic in another language</a> |
+    <a href="{{base_path}}/page/discussion/{{article.language.shortcode}}/{{article.name}}/{{article.id}}">Discussion</a>
     <h1>{{article.name}}</h1>
     <i>{{article.info}}</i>
     <br>
     {{article.version.print_contents | raw}}
     <br>
     <hr>
-    <b>Alaluokkaiset:</b> <br>
+    <b>Subclasses:</b> <br>
     {% for pair in subarticles %}
             <a href="{{base_path}}/page/view/{{article.language.shortcode}}/{{pair.subarticle.name}}/{{pair.subarticle.id}}">{{pair.subarticle.name}}</a><br>
     {% endfor %}
-    <b>Yläluokkaiset:</b> <br>
+    <b>Superclasses:</b> <br>
     {% for pair in suparticles %}
             <a href="{{base_path}}/page/view/{{article.language.shortcode}}/{{pair.suparticle.name}}/{{pair.suparticle.id}}">{{pair.suparticle.name}}</a><br>
     {% endfor %}

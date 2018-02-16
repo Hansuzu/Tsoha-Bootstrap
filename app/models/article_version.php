@@ -2,11 +2,14 @@
 class ArticleVersion extends BaseModel{
     public $id, $article_id, $parent_id, $user_id, $time, $active, $contents;
     public $print_contents;
+    public $language;
+    
     public function __construct($attributes){
         parent::__construct($attributes);
         $this->validators=array("validate_article_id", "validate_user_id", "validate_contents");
     }
     
+    //validators:
     public function validate_article_id(){
         $errors=array();
         if (Article::findById($this->article_id)==null) $errors[]="The article does not exist.";
@@ -34,7 +37,9 @@ class ArticleVersion extends BaseModel{
         return $errors;    
     }
     
-    public function language(){ //TODO This could be replaced by something simpler (currently I'm too lazy to do it)
+    
+    
+    public function language(){ //Return 
         $article=Article::findById($this->article_id);
         $language=null;
         if ($article!=null){
@@ -45,6 +50,7 @@ class ArticleVersion extends BaseModel{
     
     
     public function contents_motor(){
+        //Creates $print_contents which contains html that is shown in article view page
         $language=$this->language();
         if ($language){
             $s=htmlspecialchars($this->contents);
@@ -65,15 +71,19 @@ class ArticleVersion extends BaseModel{
     }
     
     public function setAsActiveVersion(){
+        //Set this ArticleVersion as an active version of this article (the version that is shown in the view page)
+        //Also updates the superclass-pairs 
+        
+        //Set current active articleversion not active
         $query=DB::connection()->prepare("UPDATE ArticleVersion SET active=b'0' WHERE active=b'1' AND article_id=:article_id");
-        $query->execute(array("article_id"=> $this->article_id));
+        $query->execute(array("article_id"=> $this->article_id)); 
+        //Set this version active
         $query=DB::connection()->prepare("UPDATE ArticleVersion SET active=b'1' WHERE id=:id");
         $query->execute(array("id"=> $this->id));
         
-        //superclass magic
-        //First remove comments.
-        $s=preg_replace("/\/\*(.*?)\*\//", "", $this->contents);
-        preg_match_all("/\{\{(.*?)\}\}/", $s, $superclasses);
+        //Update superclass
+        $s=preg_replace("/\/\*(.*?)\*\//", "", $this->contents); //First remove comments of contents
+        preg_match_all("/\{\{(.*?)\}\}/", $s, $superclasses); //Find all superclasses 
         $superids=array();
         $language=$this->language();
         if ($language != null){

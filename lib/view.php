@@ -11,7 +11,7 @@ class View{
 
                 // Asetetaan näkymään base_path-muuttuja index.php:ssa määritellyllä BASE_PATH vakiolla
                 $content['base_path'] = BASE_PATH;
-                
+                $content["NAMEOFPAGE"]=NAMEOFPAGE;
                 $content["full_path"]=$_SERVER["REQUEST_URI"];
 
                 // Asetetaan näkymään kirjautunut käyttäjä, jos get_user_logged_in-metodi on toteutettu

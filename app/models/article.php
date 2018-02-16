@@ -52,10 +52,10 @@ class Article extends BaseModel{
         $this->language=Language::findById($this->language_id);
         $version=ArticleVersion::findById($version);
         if (!$version){
-            $this->info="Versiota tästä artikkelista ei löytynyt.";
+            $this->info="A version of this article could not be found";
         }else{
             if ($version->article_id != $this->id){
-                $this->info="Versio ei ole tämän artikkelin versio.";
+                $this->info="The requested version is not a version of the requested article.";
             }else{
                 $this->version=$version;
             }
@@ -64,19 +64,19 @@ class Article extends BaseModel{
     public function loadActiveVersion(){
         $versions=ArticleVersion::findActiveVersions($this->id);
         if (count($versions)==0){
-            $this->info="Versiota tästä artikkelista ei löytynyt";
+            $this->info="There was no any version of this article on the database";
         }else if (count($versions)==1){
             $this->info="";
             $this->version=$versions[0];
         }else{
-            $this->info="Tämän artikkelin versionhallinnassa on ongelmia.";
+            $this->info="The version control of this article seems to be corrupt.";
             $this->version=$versions[0];
         }  
     }
     public function load($version=-1){ // Load language info and version
         self::loadLanguage();
         if ($version==-1) self::loadActiveVersion();
-        else self::loadVersion($version);
+        else if ($version>=0) self::loadVersion($version);
     }
     
     public static function all(){

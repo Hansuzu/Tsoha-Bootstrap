@@ -152,9 +152,18 @@
   \section{Relaatiotietokantakaavio}
         \makebox[\textwidth]{\includegraphics[width={\textwidth}]{relt.png}} \\
         Tietosisällön käsitekaavioon verrattuna relaatiotietokantakaavioon on lisätty article\_superclass, jota käsitekaaviossa mallintaa yhteys artikkelista itseensä.
+  \newpage
+
+  \section{Järjestelmän yleisrakenne}
+        Tietokantasovelluksessa on noudatettu MVC-mallia. Mallit sijaitsevat hakemistossa app/models. Näkymät sijaitsevat kansiossa app/views. Kontrollerit sijaitsevat hakemistossa app/controllers. Apukirjastot ovat kansiossa lib. Projektissa on käytetty Bootstrapin CSS-tiedostoa, joka on kansiossa assets/bootstrap/css. Tämän lisäksi projektissa on käytetty itse tehtyä css-tiedostoa, joka on kansiossa assets/css.
+
+        Kaikki pyynnöt menevät index.php-tiedoston kautta, joka ohjaa pyyntöjen tiedot config/routes.php -tiedostolle, joka reitittää pyynnöt oikeille tiedostoille.
+
+            
         
 
 \end{document}
+\grid
 \grid
 \grid
 \grid

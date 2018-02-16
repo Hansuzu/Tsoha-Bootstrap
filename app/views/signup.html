@@ -2,17 +2,17 @@
 
 {% block content %}
     <div class="lol-left bit-down">
-        <h2>PeeloiluPedia</h2>
-        <h1>Rekisteröidy</h1>
+        <h2>{{NAMEOFPAGE}}</h2>
+        <h1>Sign up</h1>
         <form method="post" action="{{base_path}}/signup">
             <table>
             <table>
-                <tr><td>Sähköposti:</td><td><input name="email" type="text" value="{{email}}"></input></tr>
-                <tr><td>Käyttäjänimi:</td><td><input name="username" type="text" value="{{username}}"></input></tr>
-                <tr><td>Salasana:</td><td><input name="password" type="password"></input></tr>
-                <tr><td>Toista salasana:</td><td><input name="password2" type="password"></input></tr>
+                <tr><td>Email:</td><td><input name="email" type="text" value="{{email}}"></input></tr>
+                <tr><td>Username:</td><td><input name="username" type="text" value="{{username}}"></input></tr>
+                <tr><td>Password:</td><td><input name="password" type="password"></input></tr>
+                <tr><td>Repeat password:</td><td><input name="password2" type="password"></input></tr>
             </table>
-            <button type="submit">Rekisteröidy</button>
+            <button type="submit">Sign up</button>
             </table>
         </form>
     </div>

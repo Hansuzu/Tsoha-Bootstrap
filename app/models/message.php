@@ -1,8 +1,16 @@
 <?php
 class Message extends BaseModel{
     public $id, $article_id, $user_id, $message, $time, $edited;
+    public $username;
     public function __construct($attributes){
         parent::__construct($attributes);
+        $this->validators=array("validate_message");
+    }
+    public function validate_message(){
+        $errors=array();
+        if (strlen($this->message)<3) $errors[]="There must be at least 3 characters in the message";
+        return $errors;
+    
     }
     
     public function saveAsNew(){
@@ -13,13 +21,13 @@ class Message extends BaseModel{
         $row=$query->fetch();
         $this->id=$row["id"];
     }
-    
+
     public function update(){
         $query=DB::connection()->prepare("UPDATE Message  SET message=:message, edited=NOW() WHERE id=:id");
         $query->execute(array("message"=>$this->message, "id" => $this->id));
     }
     public function erase(){
-        $query=DB::connection()->prepare("DELETE FROM Message WHERE id=:id")
+        $query=DB::connection()->prepare("DELETE FROM Message WHERE id=:id");
         $query->execute(array("id" => $this->id));
     }
     
@@ -29,7 +37,7 @@ class Message extends BaseModel{
         $rows=$query->fetchAll();
         $articles=array();
         foreach($rows as $row){
-            $articles[] = new Article(array("id"=>$row["id"],
+            $articles[] = new Message(array("id"=>$row["id"],
                                             "article_id"=>$row["article_id"],
                                             "user_id"=>$row["user_id"],
                                             "message"=>$row["message"],
@@ -46,13 +54,15 @@ class Message extends BaseModel{
         $rows=$query->fetchAll();
         $articles=array();
         foreach($rows as $row){
-            $articles[] = new Article(array("id"=>$row["id"],
+            $article= new Message(array("id"=>$row["id"],
                                             "article_id"=>$row["article_id"],
                                             "user_id"=>$row["user_id"],
                                             "message"=>$row["message"],
                                             "time"=>$row["time"],
                                             "edited"=>$row["edited"]
             ));
+            $article->username=Person::getUsernameOfId($article->user_id);
+            $articles[]=$article;
         }
         return $articles;
     }
@@ -62,7 +72,7 @@ class Message extends BaseModel{
         $query->execute(array("message_id"=>$message_id));
         $row=$query->fetch();
         if ($row){
-            $article = new Article(array(   "id"=>$row["id"],
+            $article = new Message(array("id"=>$row["id"],
                                             "article_id"=>$row["article_id"],
                                             "user_id"=>$row["user_id"],
                                             "message"=>$row["message"],

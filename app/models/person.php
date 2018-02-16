@@ -163,6 +163,12 @@ class Person extends BaseModel{
         if ($row) return true;
         return false;
     }
+    public static function getUsernameOfId($id){
+        $query=DB::connection()->prepare("SELECT username FROM Person WHERE id=:id LIMIT 1");
+        $query->execute(array("id"=>$id));
+        if ($row=$query->fetch()) return $row["username"];
+        return "<user does not exist>";
+    }
 }
 
 

@@ -7,7 +7,7 @@
 
     <title>
       {% block title %}
-        PeeloiluPedia
+        {{NAMEOFPAGE}}
       {% endblock %}
     </title>
 
@@ -36,8 +36,8 @@
                     
                     <!-- Sovelluksen nimi -->
                     <a class="navbar-brand" href="{{base_path}}">
-                        <h2>PeeloiluPedia</h2>
-                        <i>Siisti :3 wikisivusto</i>
+                        <h2>{{NAMEOFPAGE}}</h2>
+                        <i>A very cool :3 wiki</i>
                     </a>
                 </div><br><br><br><br><br>
                 <hr>
@@ -45,18 +45,17 @@
                 <div class="collapse navbar-collapse" id="navigation">
                     <ul class="nav navbar-nav">
                         <!-- Navigaation linkit -->
-                        <li><a href="{{base_path}}">Etusivu</a></li><br><br><br>
-                        <li><a href="{{base_path}}/page">Artikkelit</a></li><br><br><br>
-                        <li><a href="{{base_path}}/signup">Rekisteröidy</a></li><br><br><br>
+                        <li><a href="{{base_path}}/page">Articles</a></li><br><br><br>
+                        <li><a href="{{base_path}}/signup">Sign up</a></li><br><br><br>
                         {% if user_logged_in %}
-                            <li><a href="{{base_path}}/logout">Kirjaudu ulos</a></li><br><br><br>
+                            <li><a href="{{base_path}}/logout">Log out</a></li><br><br><br>
                         {% else %}
-                            <li><a href="{{base_path}}/login">Kirjaudu sisään</a></li><br><br><br>
+                            <li><a href="{{base_path}}/login">Log in</a></li><br><br><br>
                         {% endif %}
                         
                         {% if user_logged_in %}
                             {% if user_logged_in.is_moderator %}
-                                <li><a href="{{base_path}}/languages">Kieltenmuokkaus</a></li><br><br><br>                                
+                                <li><a href="{{base_path}}/languages">Languages</a></li><br><br><br>                                
                             {% endif %}
                         {% endif %}
                     </ul>
@@ -72,18 +71,20 @@
     
 
     <div id="main-container">
-        {% if user_logged_in %}
-            <form action="{{base_path}}/logout" method="post">
-                <input type="hidden" name="redirect_to" value="{{full_path}}">
-                Olet kirjautunut sisään tunnuksella <a href="{{base_path}}/user/{{user_logged_in.username}}">{{user_logged_in.username}}</a>. <button type="submit" class="link-like"><a>Kirjaudu ulos</a></button>
-            </form>
-        {% else %}
-            <form action="{{base_path}}/login" method="post">
-                <input type="hidden" name="redirect_to" value="{{full_path}}">
-                Et ole kirjautunut sisään. <button type="submit" class="link-like"><a>Kirjaudu sisään</a></button>
-            </form>
+        <div style="float:right;margin:10px">
+            {% if user_logged_in %}
+                <form action="{{base_path}}/logout" method="post">
+                        <input type="hidden" name="redirect_to" value="{{full_path}}">
+                        You have logged in as a <a href="{{base_path}}/user/{{user_logged_in.username}}">{{user_logged_in.username}}</a>. <button type="submit" class="link-like"><a>Log out</a></button>
+                </form>
+            {% else %}
+                <form action="{{base_path}}/login" method="post">
+                    <input type="hidden" name="redirect_to" value="{{full_path}}">
+                    You are not logged in. <button type="submit" class="link-like"><a>Log in</a></button>
+                </form>
+            {% endif %}
+        </div>
             
-        {% endif %}
         {% if message %}
             <div class="alert alert-success">
                 {{message}}

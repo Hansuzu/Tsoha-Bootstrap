@@ -1,35 +1,34 @@
 {% extends "base.html" %}
 
 {% block leftbar %}
-    <b>Kielet:</b><br>
+    <b>Languages:</b><br>
 {% endblock %}
 
 {% block content %}
   <div class="lol-left">
-        <h1>(Artikkelin keskustelusivu)</h1>
-        <div class="messagebox">
-            <b>User kirjoitti</b>
-            <div class="message">
-                Viesti lolo <br><br> Jotain.
+        <a href="{{base_path}}/page/view/{{article.language.shortcode}}/{{article.name}}/{{article.id}}">View Article</a>
+        <h1>Article discussion page</h1>
+        {% for message in messages %}
+            <div class="messagebox">
+                <b>{{message.username}}</b> {{message.time}} {% if message.time!=message.edited %}<i>({{message.edited}})</i>{% endif %}
+                <div class="message">
+                    {{message.message}}
+                </div>
             </div>
-        </div>
-        <div class="messagebox">
-            <b>User2 kirjoitti</b>
-            <div class="message">
-                Lorem <br>ipsum<br>Panem nostrum cotidianum da nobis hodie<br>
-                et dimitte nobis debita nostra sicut et nos dibittimus debitoribus nostrim
-            </div>
-        </div>
-        <div class="messagebox">
-            <b>Kirjoita viesti</b>
-            <div class="message">
-                <form>
-                    <textarea name="suparticles" rows=5 cols=50></textarea><br>
-                    <button type="submit"> Lähetä </button>
-                </form>
-            </div>
-        </div>
-        
+        {% endfor %}
+        {% if user_logged_in %}
+            <form method="post" action="{{base_path}}/page/discussion/{{article.language.shortcode}}/{{article.name}}/{{article.id}}">
+                <div class="messagebox">
+                    <b>Write a message</b>
+                    <div class="message">
+                        <form>
+                            <textarea name="message" rows=5 cols=50></textarea><br>
+                            <button type="submit"> Lähetä </button>
+                        </form>
+                    </div>
+                </div>
+            </form>
+        {% endif %}
   </div>
   
 {% endblock %}

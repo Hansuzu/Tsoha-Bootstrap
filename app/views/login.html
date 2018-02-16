@@ -6,11 +6,11 @@
 
 {% block content %}
     <div class="lol-left bit-down">
-        <h2>PeeloiluPedia</h2>
+        <h2>{{NAMEOGPAGE}}</h2>
         {% if user_logged_in %}
-            <h1>Olet kirjautunut sisään.</h1>
+            <h1>You are logged in.</h1>
         {% else %}
-            <h1>Kirjaudu sisään</h1>
+            <h1>Log in</h1>
             <form method="post" action="{{base_path}}/login">
                 <table>
                     {% if redirect_to %}
@@ -18,10 +18,10 @@
                     {% else %}
                         <input type="hidden" name="redirect_to"  value="/login"></input>                    
                     {% endif %}
-                    <tr><td>Käyttäjänimi:</td><td><input name="username" type="text"></input></tr>
-                    <tr><td>Salasana:</td><td><input name="password" type="password"></input></tr>
+                    <tr><td>Username:</td><td><input name="username" type="text"></input></tr>
+                    <tr><td>Password</td><td><input name="password" type="password"></input></tr>
                 </table>
-                <button type="submit">Kirjaudu</button>
+                <button type="submit">Log in</button>
             </form>
         {% endif %}
     </div>

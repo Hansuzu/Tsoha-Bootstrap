@@ -21,7 +21,7 @@
             }
         }
         if (!$logged_in){
-            Redirect::to("/login", array("message"=>"Kirjaudu sisään jatkaaksesi.", "redirect_to"=>$_SERVER["REQUEST_URI"]));
+            Redirect::to("/login", array("message"=>"Log in to continue.", "redirect_to"=>$_SERVER["REQUEST_URI"]));
         }
     }
     
