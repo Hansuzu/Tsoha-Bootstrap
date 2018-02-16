@@ -8,10 +8,60 @@ class Article extends BaseModel{
     
     public function __construct($attributes){
         parent::__construct($attributes);
-        $this->language="lol";
+        $this->validators=array("validate_language", "validate_name");
     }
-    public function load(){ // Load language info and version info
+    public function validate_name(){
+        $errors=array();
+        if ($this->name == "" || $this->name==null || strlen($this->name)<3) $errors[]="There must be at least 3 characters in the name of an article.";
+        return $errors;
+    }
+    public function validate_language(){
+        $errors=array();
+        if (Language::findById($this->language_id)==null) $errors[]="The language does not exist.";
+        return $errors;
+    }
+    
+    public function isReadonly(){
+        return $this->readonly==0x01;
+    }
+    public function saveAsNew(){
+        $query=DB::connection()->prepare("INSERT INTO Article (abstract_id, language_id, readonly, name) 
+                                                              VALUES (:abstract_id, :language_id, :readonly, :name)
+                                                              RETURNING id");
+        $query->execute(array("abstract_id" => $this->abstract_id, 
+                              "language_id" => $this->language_id, 
+                              "readonly" => $this->readonly,
+                              "name" => $this->name));
+        $row=$query->fetch();
+        $this->id=$row["id"];
+    }
+    public function update(){
+        $query=DB::connection()->prepare("UPDATE Article SET abstract_id=:abstract_id, language_id=:language_id, readonly=:readonly, name=:name 
+                                                              WHERE id=:id");
+        $query->execute(array("abstract_id" => $this->abstract_id, 
+                              "language_id" => $this->language_id, 
+                              "readonly" => $this->readonly,
+                              "name" => $this->name,
+                              "id" => $this->id));
+    }
+    
+    public function loadLanguage(){
         $this->language=Language::findById($this->language_id);
+    }
+    public function loadVersion($version){
+        $this->language=Language::findById($this->language_id);
+        $version=ArticleVersion::findById($version);
+        if (!$version){
+            $this->info="Versiota tästä artikkelista ei löytynyt.";
+        }else{
+            if ($version->article_id != $this->id){
+                $this->info="Versio ei ole tämän artikkelin versio.";
+            }else{
+                $this->version=$version;
+            }
+        }
+    }
+    public function loadActiveVersion(){
         $versions=ArticleVersion::findActiveVersions($this->id);
         if (count($versions)==0){
             $this->info="Versiota tästä artikkelista ei löytynyt";
@@ -21,7 +71,12 @@ class Article extends BaseModel{
         }else{
             $this->info="Tämän artikkelin versionhallinnassa on ongelmia.";
             $this->version=$versions[0];
-        }
+        }  
+    }
+    public function load($version=-1){ // Load language info and version
+        self::loadLanguage();
+        if ($version==-1) self::loadActiveVersion();
+        else self::loadVersion($version);
     }
     
     public static function all(){
@@ -48,7 +103,10 @@ class Article extends BaseModel{
             $b=strtolower($terms);
             $a=preg_replace("/[^a-z]+/i", "", $a);
             $b=preg_replace("/[^a-z]+/i", "", $b);
-            if ((strpos($a, $b)) !== false){
+            if (strlen($a)==0)continue;
+            else if (strlen($b)==0){
+                $result[]=$article;
+            }else if ((strpos($a, $b)) !== false){
                 $result[]=$article;
             }
         }
@@ -71,7 +129,7 @@ class Article extends BaseModel{
     }
     
     public static function findByNameAndLanguage($name, $language_id){
-        $query=DB::connection()->prepare("SELECT * FROM Article WHERE name=:name AND language_id=:language_id");
+        $query=DB::connection()->prepare("SELECT * FROM Article WHERE UPPER(name) LIKE UPPER(:name) AND language_id=:language_id");
         $query->execute(array("name" => $name, "language_id"=>$language_id));
         $rows=$query->fetchAll();
         $articles=array();

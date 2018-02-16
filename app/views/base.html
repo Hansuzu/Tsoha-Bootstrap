@@ -48,7 +48,17 @@
                         <li><a href="{{base_path}}">Etusivu</a></li><br><br><br>
                         <li><a href="{{base_path}}/page">Artikkelit</a></li><br><br><br>
                         <li><a href="{{base_path}}/signup">Rekisteröidy</a></li><br><br><br>
-                        <li><a href="{{base_path}}/login">Kirjaudu sisään</a></li><br><br><br>
+                        {% if user_logged_in %}
+                            <li><a href="{{base_path}}/logout">Kirjaudu ulos</a></li><br><br><br>
+                        {% else %}
+                            <li><a href="{{base_path}}/login">Kirjaudu sisään</a></li><br><br><br>
+                        {% endif %}
+                        
+                        {% if user_logged_in %}
+                            {% if user_logged_in.is_moderator %}
+                                <li><a href="{{base_path}}/languages">Kieltenmuokkaus</a></li><br><br><br>                                
+                            {% endif %}
+                        {% endif %}
                     </ul>
                 </div>
                 
@@ -62,8 +72,30 @@
     
 
     <div id="main-container">
-      <!-- Dynaaminen sisältö tulee tähän -->
-      {% block content %}{% endblock %}
+        {% if user_logged_in %}
+            <form action="{{base_path}}/logout" method="post">
+                <input type="hidden" name="redirect_to" value="{{full_path}}">
+                Olet kirjautunut sisään tunnuksella <a href="{{base_path}}/user/{{user_logged_in.username}}">{{user_logged_in.username}}</a>. <button type="submit" class="link-like"><a>Kirjaudu ulos</a></button>
+            </form>
+        {% else %}
+            <form action="{{base_path}}/login" method="post">
+                <input type="hidden" name="redirect_to" value="{{full_path}}">
+                Et ole kirjautunut sisään. <button type="submit" class="link-like"><a>Kirjaudu sisään</a></button>
+            </form>
+            
+        {% endif %}
+        {% if message %}
+            <div class="alert alert-success">
+                {{message}}
+            </div>
+        {% endif %}
+        {% if error_message %}
+            <div class="alert alert-warning">
+                {{error_message}}
+            </div>
+        {% endif %}
+        <!-- Dynaaminen sisältö tulee tähän -->
+        {% block content %}{% endblock %}
     </div>
 
     {% block body %}

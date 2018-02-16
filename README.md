@@ -17,13 +17,19 @@ Tarkoituksena on luoda wikipedian kaltainen sivusto, jossa on käyttäjiä eri o
 
 [Rekisteröitymissivu](https://haih.users.cs.helsinki.fi/tsoh/signup)
 
-[Artikkelihakusivu](https://haih.users.cs.helsinki.fi/tsoh/page) (kannattaa hakea esim. diipadaapa)
+[Artikkelihakusivu](https://haih.users.cs.helsinki.fi/tsoh/page) (Tyhjällä hakusanalla saa listattua kaikki artikkelit)
 
-[Artikkelisivu](https://haih.users.cs.helsinki.fi/tsoh/page/abb/diipadaapa) (diipadaapa sivu)
+[Esimerkki artikkelisivust](https://haih.users.cs.helsinki.fi/tsoh/page/abb/diipadaapa)
 
-[Artikkelin muokkaussivu](https://haih.users.cs.helsinki.fi/tsoh/page/edit) (Ei vielä mitään)
+[Artikkelin muokkaussivu](https://haih.users.cs.helsinki.fi/tsoh/page/edit) (Vaatii kirjautumisen)
 
 [Artikkelin keskustelusivu](https://haih.users.cs.helsinki.fi/tsoh/page/discussion) (Ei vielä mitään)
 
-[Käyttäjä](https://haih.users.cs.helsinki.fi/tsoh/user/lol) 
+[Käyttäjä](https://haih.users.cs.helsinki.fi/tsoh/user/root)
+
+## Kirjautuminen
+
+Admin: root, tyhjä salasana
+Moderaattori: moderator, tyhjä salasana
+Tavallinen käyttäjä: user, tyhjä salasana
 

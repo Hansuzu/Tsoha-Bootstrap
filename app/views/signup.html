@@ -4,12 +4,13 @@
     <div class="lol-left bit-down">
         <h2>PeeloiluPedia</h2>
         <h1>Rekisteröidy</h1>
-        <form>
+        <form method="post" action="{{base_path}}/signup">
             <table>
             <table>
-                <tr><td>Sähtköposti:</td><td><input type="text"></input></tr>
-                <tr><td>Käyttäjänimi:</td><td><input type="text"></input></tr>
-                <tr><td>Salasana:</td><td><input type="password"></input></tr>
+                <tr><td>Sähköposti:</td><td><input name="email" type="text" value="{{email}}"></input></tr>
+                <tr><td>Käyttäjänimi:</td><td><input name="username" type="text" value="{{username}}"></input></tr>
+                <tr><td>Salasana:</td><td><input name="password" type="password"></input></tr>
+                <tr><td>Toista salasana:</td><td><input name="password2" type="password"></input></tr>
             </table>
             <button type="submit">Rekisteröidy</button>
             </table>

@@ -5,6 +5,7 @@
 
 {% block content %}
     <div class="lol-left bit-down">
+        <a href="{{base_path}}/page/new">Uusi artikkeli</a>
         <h2>PeeloiluPedia</h2>
         <h1>Etsi artikkelia</h1>
         <form method="get" action="{{base_path}}/page">
@@ -18,7 +19,7 @@
         {% if search %}
             <h3>Hakutulokset</h3>
             {% for article in results %}
-                <a href="{{base_path}}/page/{{article.language.shortcode}}/{{article.name}}/{{article.id}}">{{article.name}} ({{article.language.name}})</a><br>
+                <a href="{{base_path}}/page/view/{{article.language.shortcode}}/{{article.name}}/{{article.id}}">{{article.name}} ({{article.language.name}})</a><br>
             {% endfor %}
         {% endif %}
     </div>

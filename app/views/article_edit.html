@@ -1,20 +1,33 @@
 {% extends "base.html" %}
 
 {% block leftbar %}
-    <b>Kielet:</b><br>
 {% endblock %}
 
 {% block content %}
   <div class="lol-left">
-    <h1>(Artikkeli-edit)</h1>
-    (Tullaan lataamaan tietokannasta...) <br>
-    <form>
-        Artikkelin nimi: <input name="title"></input><br><br>
-        <textarea name="article" rows=15 cols=150></textarea> <br>
-        SuperArtikkelit:<br>
-        <textarea name="suparticles" rows=5 cols=150></textarea><br>
+    {% if version.id!=-1 %}
+        <h1>Muokkaa artikkelia</h1>
+    {% else %}
+        <h1>Luo uusi artikkeli</h1>
+    {% endif %}
+    <form method="post" action="{{base_path}}/page/save">
+        <input type="hidden" name="parent_version" value="{{version.id}}"></input>
+        {% if version.id!=-1 %}
+            <input type="hidden" name="language" value="{{article.language.shortcode}}"></input><br><br>
+            <input type="hidden" name="abstract_id" value="{{article.abstract_id}}"></input>
+        {% else %}
+            Kieli: <br>
+            {% for language in languages %}
+                <input type="radio" name="language" value="{{language.shortcode}}"> {{language.name}} <br>
+            {% endfor %}
+            <input type="hidden" name="abstract_id" value="{{abstract_id}}"></input>
+        {% endif %}
+        
+        Artikkelin nimi: <input name="title" value="{{article.name}}"></input><br><br>
+        <textarea name="article" rows=15 cols=150>{{version.contents}}</textarea> <br>
         <button type="submit">Tallenna</button><br>
     </form>
+    <form action="{{base_path}}/page/version/{{version.id}}"><button type="submit">Peruuta</button></form>
   </div>
   
 {% endblock %}

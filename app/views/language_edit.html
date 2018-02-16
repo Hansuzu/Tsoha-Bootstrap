@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block leftbar %}
+{% endblock %}
+
+{% block content %}
+  <div class="lol-left">
+    <h1>Kielieditointi</h1>
+    <i>Vihje: Jos jollakin kielellä on artikkeleita, sen poistaminen on todennäköisesti tuhma idea :Dd</i><br>
+    <form method="post" action="{{base_path}}/languages">
+        <table>
+            <tr>
+                <th>Kielen nimi</th><th>Lyhenne</th><th>Muokkaa</th><th>Poista</th>
+            </tr>
+            
+            {% for language in languages %}
+                <tr>
+                    <td><input type="text" name="name[{{language.id}}]" value="{{language.name}}"></input></td>
+                    <td><input type="text" name="shortcode[{{language.id}}]" value="{{language.shortcode}}"></input></td>
+                    <td><input type="checkbox" name="edit[{{language.id}}]" /></td>
+                    <td><input type="checkbox" name="remove[{{language.id}}]" /></td>
+                </tr>
+            {% endfor %}
+        </table>
+        <button type="submit">Tallenna</button>
+    </form>
+    <h2>Lisää uusi kieli</h2>
+    <form method="post" action="{{base_path}}/languages">
+        <table>
+            <tr>
+                <th>Nimi:</th><td><input type="text" name="new_name"></input></td>
+            </tr>
+            <tr>
+                <th>Lyhenne</th><td><input type="text" name="new_shortcode"></input></td>
+            </tr>
+        </table>
+        <button type="submit">Tallenna</button>
+    </form>
+  </div>
+  
+{% endblock %}

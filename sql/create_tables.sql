@@ -4,7 +4,7 @@ CREATE TABLE Person(
     id SERIAL PRIMARY KEY NOT NULL,
     username VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(50) NOT NULL UNIQUE,
-    pword VARCHAR(50) NOT NULL,
+    pword VARCHAR(255) NOT NULL,
     is_admin BIT(1) NOT NULL,
     is_moderator BIT(1) NOT NULL,
     edit_allowed BIT(1) NOT NULL,

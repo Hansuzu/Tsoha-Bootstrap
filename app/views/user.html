@@ -7,7 +7,20 @@
   <div class="lol-left">
     {% if person %}
         <h1>{{person.username}}</h1>
-        Rekisteröitynyt: {{person.created}}
+        Rekisteröitynyt: {{person.created}}<br>
+        {% if user_logged_in %}
+            {% if user_logged_in.is_moderator %}
+                <form method="post" action="{{base_path}}/user/{{person.username}}">
+                    {% if user_logged_in.is_admin %}
+                        <input type="checkbox" name="is_admin" {% if person.is_admin %}checked{% endif %} /> Admin <br>
+                        <input type="checkbox" name="is_moderator" {% if person.is_moderator %}checked{% endif %} /> Moderaattori <br>
+                    {% endif %}
+                    <input type="checkbox" name="edit_allowed" {% if person.edit_allowed %}checked{% endif %} /> Artikkelien muokkaukset sallittu <br>
+                    <input type="checkbox" name="messages_allowed" {% if person.messages_allowed %}checked{% endif %} /> Viestien kirjoittaminen sallittu <br>
+                    <button type="submit">Tallenna muutokset</button>
+                </form>
+            {% endif %}
+        {% endif %}
     {% else %}
         <h1>Käyttäjää ei löydy</h1>
     {% endif %}

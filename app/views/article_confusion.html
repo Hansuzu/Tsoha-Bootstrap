@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block leftbar %}
-    <b>Kielet:</b><br>
 {% endblock %}
 
 {% block content %}
@@ -11,8 +10,7 @@
     {% if articles %}
         Artikkelien päällekkäisyysongelma <br>
         {% for article in articles %}
-            <a href="{{base_path}}/page/{{article.language.shortcode}}/{{article.name}}/{{article.id}}">{{article.name}}</a><br>
-            
+            <a href="{{base_path}}/page/view/{{article.language.shortcode}}/{{article.name}}/{{article.id}}">{{article.name}}</a><br>
         {% endfor %}
     {% else %}
         Artikkelia ei ole olemassa.

@@ -3,17 +3,29 @@
 {% block leftbar %}
     <b>Kielet:</b><br>
     {% for version in versions %}
-        {% set language = version.language %}
-        <a href="{{base_path}}/page/{{version.language.shortcode}}/{{version.name}}/{{version.id}}">{{version.language.name}}</a><br>
+        <a href="{{base_path}}/page/view/{{version.language.shortcode}}/{{version.name}}/{{version.id}}">{{version.language.name}}</a><br>
     {% endfor %}
 {% endblock %}
 
 {% block content %}
   <div class="lol-left">
+    <a href="{{base_path}}/page/edit/{{article.version.id}}">Muokkaa</a> | 
+    <a href="{{base_path}}/page/new">Uusi artikkeli</a>  | 
+    <a href="{{base_path}}/page/new/{{article.abstract_id}}">Uusi artikkeli tästä aiheesta toisella kielellä</a>
     <h1>{{article.name}}</h1>
     <i>{{article.info}}</i>
     <br>
-    {{article.version.contents}}
+    {{article.version.print_contents | raw}}
+    <br>
+    <hr>
+    <b>Alaluokkaiset:</b> <br>
+    {% for pair in subarticles %}
+            <a href="{{base_path}}/page/view/{{article.language.shortcode}}/{{pair.subarticle.name}}/{{pair.subarticle.id}}">{{pair.subarticle.name}}</a><br>
+    {% endfor %}
+    <b>Yläluokkaiset:</b> <br>
+    {% for pair in suparticles %}
+            <a href="{{base_path}}/page/view/{{article.language.shortcode}}/{{pair.suparticle.name}}/{{pair.suparticle.id}}">{{pair.suparticle.name}}</a><br>
+    {% endfor %}
   </div>
   
 {% endblock %}
