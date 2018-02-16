@@ -10,7 +10,7 @@
         <h1>Article discussion page</h1>
         {% for message in messages %}
             <div class="messagebox">
-                <b>{{message.username}}</b> {{message.time}} {% if message.time!=message.edited %}<i>({{message.edited}})</i>{% endif %}
+                <a href="{{base_path}}/user/{{message.username}}"><b>{{message.username}}</b></a> {{message.time}} {% if message.time!=message.edited %}<i>({{message.edited}})</i>{% endif %}
                 <div class="message">
                     {{message.message}}
                 </div>

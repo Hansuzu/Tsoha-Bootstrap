@@ -3,4 +3,6 @@
 \contentsline {subsection}{\numberline {2.1}K\IeC {\"a}ytt\IeC {\"a}j\IeC {\"a}ryhm\IeC {\"a}t}{4}
 \contentsline {subsection}{\numberline {2.2}K\IeC {\"a}ytt\IeC {\"o}tapaukset}{4}
 \contentsline {section}{\numberline {3}J\IeC {\"a}rjestelm\IeC {\"a}n tietosis\IeC {\"a}lt\IeC {\"o}}{6}
-\contentsline {section}{\numberline {4}Relaatiotietokantakaavio}{8}
+\contentsline {section}{\numberline {4}Relaatiotietokantakaavio}{9}
+\contentsline {section}{\numberline {5}J\IeC {\"a}rjestelm\IeC {\"a}n yleisrakenne}{10}
+\contentsline {section}{\numberline {6}K\IeC {\"a}ytt\IeC {\"o}liittym\IeC {\"a} ja j\IeC {\"a}rjestelm\IeC {\"a}n komponentit}{10}

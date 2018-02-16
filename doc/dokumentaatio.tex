@@ -53,7 +53,7 @@
   \newpage
   \section{Järjestelmän tietosisältö}
         \textbf{Käsitekaavio:} \\
-        \makebox[\textwidth]{\includegraphics[width={\textwidth}]{tietos.png}}
+        \makebox[\textwidth]{\includegraphics[width={\textwidth}]{tietos.png}} \\
 
         \textbf{Tietokohde:AbstraktiArtikkeli} \\
         AbstraktiArtikkeli on jokin tietty aihe (käytännössä vain id), josta voi olla erikielisiä artikkeleita. Jokainen artikkeli on linkitetty johonkin AbstraktiArtikkeliin. Samaan AbstraktiArtikkeliin linkitetyt erikieliset artikkelit tulkitaan olevan samasta aiheesta tehtyjä erikielisiä versioita. Jos samaan AbstraktiArtikkeliin on linkitetty kaksi samankielistä artikkelia, näiden tulkitaan olevan päällekkäinen versio samasta aiheesta. \\ \\
@@ -159,7 +159,14 @@
 
         Kaikki pyynnöt menevät index.php-tiedoston kautta, joka ohjaa pyyntöjen tiedot config/routes.php -tiedostolle, joka reitittää pyynnöt oikeille tiedostoille.
 
-            
+  \section{Käyttöliittymä ja järjestelmän komponentit}
+        Laatikot, joissa on kirjain punaisella, ovat sivuja, joihin pääsee navigointipalkista.
+        Kirjaimet värillisellä taustalla tarkoittavat: A kaikki käyttäjät, K rekisteröityneet käyttäjät, M moderaattorit, R admin. \\
+        \makebox[\textwidth]{\includegraphics[width={\textwidth}]{kjkmp.png}} \\ \\
+        Lisäksi artikkelikeskustelusivulla on mahdollisuus kirjoittaa viestejä vain rekisteröityneillä käyttäjillä.\\
+        Käyttäjäsivulla puolestaan moderaattori ja admin-oikeuksilla varustetut käyttäjät voivat muuttaa käyttäjän oikeuksia. \\
+        (TODO: Käyttäjäsivu on tällä hetkellä hieman "syrjäytynyt" osio, sinne ei pääse navigointipalkista, ja muualta yhteys sinne on vain satunnainen, tällä hetkellä vain keskustelualueen viesteissä on linkki kirjoittajan sivuun)
+        (TODO: Controllereiden sisältöä voisi ehkä jakaa, esim. kirjautuminen eri kontrolleriin kuin käyttäjäsivun näyttäminen, mutta toisaalta...)
         
 
 \end{document}

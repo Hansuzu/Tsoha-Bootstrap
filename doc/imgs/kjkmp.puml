@@ -1,0 +1,45 @@
+@startuml
+
+
+
+class Tervetuloasivu << (A,#FFDDDD) >> {
+    hello_world_controller.php
+    (tällä hetkellä)
+}
+
+class Kirjautumissivu << (A,#FFDDDD) >> {
+    user_controller.php
+    (tällä hetkellä)
+}
+
+class Rekisteröityminen << (A,#FFDDDD) >> {
+    user_controller.php
+    (tällä hetkellä)
+}
+
+class Artikkelihaku << (A,#FFDDDD)  >> {
+    article_controller.php
+}
+
+class Artikkeli << (A,#DDDDFF) >> {
+    article_controller.php
+}
+class ArtikkeliMuokkaus  << (K,#DDDDFF) >>  {
+    article_controller.php
+}
+class ArtikkeliKeskustelu  << (A,#DDDDFF) >>  {
+    article_controller.php
+}
+class Kielihallinta  << (M,#FFDDDD) >> {
+    language_controller.php
+}
+
+class Käyttäjäsivu << (A,#DDDDFF) >> {
+    user_controller.php
+}
+
+Artikkelihaku --> Artikkeli
+Artikkeli <--> ArtikkeliMuokkaus
+Artikkeli <--> ArtikkeliKeskustelu
+
+@enduml
