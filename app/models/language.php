@@ -9,7 +9,7 @@ class Language extends BaseModel{
     public function validate_name(){
         $errors=array();
         if ($this->name == "" || $this->name==null || strlen($this->name)<3) $errors[]="There must be at least 3 characters in the name of a language.";
-        if (self::languageNameExists($this->shortcode, $this->id)) $errors[]="Name is already in use";
+        if (self::languageNameExists($this->name, $this->id)) $errors[]="Name is already in use";
         return $errors;
     }
     public function validate_shortcode(){

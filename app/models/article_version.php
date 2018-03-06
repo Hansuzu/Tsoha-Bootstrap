@@ -3,9 +3,13 @@ class ArticleVersion extends BaseModel{
     public $id, $article_id, $parent_id, $user_id, $time, $active, $contents;
     public $print_contents;
     public $language;
+    public $username;
+    public $children;
     
     public function __construct($attributes){
         parent::__construct($attributes);
+        $this->username="";
+        $this->children=array();
         $this->validators=array("validate_article_id", "validate_user_id", "validate_contents");
     }
     
@@ -29,7 +33,7 @@ class ArticleVersion extends BaseModel{
                 }
             }
         }
-        return $errors;    
+        return $errors;
     }
     public function validate_contents(){
         $errors=array();
@@ -125,10 +129,10 @@ class ArticleVersion extends BaseModel{
     public static function findAllVersions($article_id){
         $query=DB::connection()->prepare("SELECT * FROM ArticleVersion WHERE article_id=:article_id");
         $query->execute(array("article_id" => $article_id));
-        $row=$query->fetchAll();
+        $rows=$query->fetchAll();
         $versions=array();
         foreach($rows as $row){
-            $versions[]=new ArticleVersion(array("id"=>$row["id"], 
+            $version=new ArticleVersion(array("id"=>$row["id"], 
                                         "article_id"=>$row["article_id"],
                                         "parent_id"=>$row["parent_id"],
                                         "user_id"=>$row["user_id"],
@@ -136,6 +140,8 @@ class ArticleVersion extends BaseModel{
                                         "active"=>$row["active"],
                                         "contents"=>$row["contents"]
             ));
+            $version->username=Person::getUsernameOfId($version->user_id);
+            $versions[$version->id]=$version;
         }
         return $versions;
     }

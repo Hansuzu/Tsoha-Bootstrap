@@ -9,10 +9,23 @@
 
 {% block content %}
   <div class="lol-left">
-    <a href="{{base_path}}/page/edit/{{article.version.id}}">Edit</a> | 
+    {% if not article.readonly %}
+        <a href="{{base_path}}/page/edit/{{article.version.id}}">Edit</a> | 
+    {% endif %}
+    <a href="{{base_path}}/page/history/{{article.language.shortcode}}/{{article.name}}/{{article.id}}">History</a> | 
     <a href="{{base_path}}/page/new">New article</a>  | 
     <a href="{{base_path}}/page/new/{{article.abstract_id}}">New article about this topic in another language</a> |
     <a href="{{base_path}}/page/discussion/{{article.language.shortcode}}/{{article.name}}/{{article.id}}">Discussion</a>
+    {% if user_logged_in %}
+        {% if user_logged_in.is_moderator %}
+            {% if article.readonly %}
+                | <a href="{{base_path}}/page/save?allow_edit={{article.id}}">Make this article editable</a>
+            {% else %}
+                | <a href="{{base_path}}/page/save?make_readonly={{article.id}}">Make this article readonly</a>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
     <h1>{{article.name}}</h1>
     <i>{{article.info}}</i>
     <br>

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block leftbar %}
+    <b>Languages:</b><br>
+    {% for version in versions %}
+        <a href="{{base_path}}/page/history/{{version.language.shortcode}}/{{version.name}}/{{version.id}}">{{version.language.name}}</a><br>
+    {% endfor %}
+{% endblock %}
+
+{% macro historyTree(node, articleversions, base_path, user_logged_in) %}
+    <li>
+        <a href="{{base_path}}/page/version/{{articleversions[node].id}}">{{articleversions[node].time}}</a> by <a href="{{base_path}}/user/{{articleversions[node].username}}">{{articleversions[node].username}} </a>
+        {% if articleversions[node].active %} 
+            | (active)
+        {% else %}
+            {% if user_logged_in %}
+                {% if user_logged_in.is_moderator %}
+                    | <a href="{{base_path}}/page/save?set_as_active={{articleversions[node].id}}">Set as active version</a>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+        
+        
+        {% if articleversions[node].children|length %}
+            <ul>
+                {% for child in articleversions[node].children %}
+                    {{ _self.historyTree(child, articleversions, base_path, user_logged_in) }}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </li>
+{% endmacro %}
+{% block content %}
+  <div class="lol-left">
+        <h1>Article history page</h1>
+        <ul>
+            {{_self.historyTree(root_version, articleversions, base_path, user_logged_in)}}
+        </ul>
+  </div>
+  
+{% endblock %}

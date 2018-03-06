@@ -34,6 +34,26 @@ class ArticleController extends BaseController{
         View::make('article.html', array("article"=>$article, "versions"=>$versions, "suparticles"=>$suparticles, "subarticles"=>$subarticles));
     }
     
+    public static function viewArticleHistory($article){
+        //Get versions of this article on different languages
+        $versions=Article::findByAbstractId($article->abstract_id);
+        foreach($versions as $version){
+            $version->load();
+        }
+        $articleversions=ArticleVersion::findAllVersions($article->id);
+        $root_version=null;
+        foreach($articleversions as $id => $version){
+            if ($version->parent_id==0){
+                $root_version=$id;
+            }else{
+                $articleversions[$version->parent_id]->children[]=$id;
+            }
+        }
+        
+        View::make('article_history.html', array("root_version"=>$root_version, "articleversions"=>$articleversions, "versions"=>$versions));
+    }
+    
+    
     
     
     public static function viewArticleByNameAndLanguage($languageShortCode, $articleName){
@@ -66,6 +86,33 @@ class ArticleController extends BaseController{
             View::make('article_confusion.html', array("articles"=>array()));
         }
     }
+    
+    
+    public static function viweHistoryByNameAndLanguage($languageShortCode, $articleName){
+        $articles=array();
+        if ($language=Language::findByShortcode($languageShortCode)) {
+            $articles=Article::findByNameAndLanguage($articleName, $language->id);
+            foreach($articles as $article){
+                $article->load(-2);
+            }
+        }
+        if (count($articles)==1){
+            self::viewArticle($articles[0]);
+        }else{ //Article doesn't exist or many articles satisfy the condition (which shouldn't happen)
+            View::make('article_confusion.html', array("articles"=>$articles));
+        }
+    }
+    
+    
+    public static function viewHistoryById($articleId) {
+        if ($article=Article::findById($articleId)){
+            self::viewArticleHistory($article);
+        }else{
+            View::make('article_confusion.html', array("articles"=>array()));
+        }
+    }
+    
+    
     
     
     public static function editArticle($version_id) { //view Article edit-page
@@ -172,6 +219,41 @@ class ArticleController extends BaseController{
     }
     
     
+    public static function saveArticleBits(){
+        self::check_logged_in();
+        $user=self::get_user_logged_in();
+        if ($user->isModerator()){
+            if (isset($_GET["set_as_active"])){
+                $articleVersion=ArticleVersion::findById($_GET["set_as_active"]);
+                if ($articleVersion){
+                    $articleVersion->setAsActiveVersion();
+                    Redirect::to("/page/version/".$articleVersion->id, array("message"=>"This version is now set as an active version."));
+                }
+            }
+            if (isset($_GET["allow_edit"])){
+                $article=Article::findById($_GET["allow_edit"]);
+                if ($article){
+                    $article->readonly=0x00;
+                    $article->update();
+                    $article->loadLanguage();
+                    $language=$article->language;
+                    Redirect::to("/page/view/".$language->shortcode."/".$article->name."/".$article->id, array("message"=>"Editing allowed in this article."));
+                }
+            }
+            if (isset($_GET["make_readonly"])){
+                $article=Article::findById($_GET["make_readonly"]);
+                if ($article){
+                    $article->readonly=0x01;
+                    $article->update();
+                    $article->loadLanguage();
+                    $language=$article->language;
+                    Redirect::to("/page/view/".$language->shortcode."/".$article->name."/".$article->id, array("message"=>"Article set in readonly state."));
+                }
+            }
+        }else $errors[]="You must log in as a moderator to do that...";
+        $error_message=$errors[0];
+        Redirect::to('page/', array("error_message"=>$error_message));
+    }
     public static function saveArticle(){ //Article save page
         self::check_logged_in();
         

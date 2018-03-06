@@ -37,6 +37,7 @@ Table(ArticleVersion){
     foreign_key(parent_id) INTEGER
     foreign_key(user_id) INTEGER
     time TIMESTAMP
+    active BIT 1
     contents TEXT
 }
 
@@ -62,6 +63,7 @@ Table(AbstractArticle) {
 Table(Language) {
     primary_key(id) SERIAL
     name VARCHAR 50
+    shortcode VARCHAR 50
 }
 
 

@@ -20,7 +20,7 @@ class Rekisteröityminen << (A,#FFDDDD) >> {
 class Artikkelihaku << (A,#FFDDDD)  >> {
     article_controller.php
 }
-
+Artikkelihaku --> Artikkeli
 class Artikkeli << (A,#DDDDFF) >> {
     article_controller.php
 }
@@ -30,6 +30,12 @@ class ArtikkeliMuokkaus  << (K,#DDDDFF) >>  {
 class ArtikkeliKeskustelu  << (A,#DDDDFF) >>  {
     article_controller.php
 }
+class ArtikkeliHistoria  << (A,#DDDDFF) >>  {
+    article_controller.php
+}
+Artikkeli <--> ArtikkeliMuokkaus
+Artikkeli <--> ArtikkeliKeskustelu
+
 class Kielihallinta  << (M,#FFDDDD) >> {
     language_controller.php
 }
@@ -38,8 +44,5 @@ class Käyttäjäsivu << (A,#DDDDFF) >> {
     user_controller.php
 }
 
-Artikkelihaku --> Artikkeli
-Artikkeli <--> ArtikkeliMuokkaus
-Artikkeli <--> ArtikkeliKeskustelu
 
 @enduml

@@ -48,6 +48,14 @@
         ArticleController::viewDiscussionById($article_id);
     });
     
+    //Historiasivut
+    $routes->get('/page/history/:languageShortCode/:article_name', function($languageShortCode, $article_name) {
+        ArticleController::viewHistoryByNameAndLanguage($languageShortCode, $article_name);
+    });
+    $routes->get('/page/history/:languageShortCode/:article_name/:article_id', function($languageShortCode, $article_name, $article_id) {
+        ArticleController::viewHistoryById($article_id);
+    });
+    
     
     //Artikkelin muokkaussivut
     $routes->get('/page/edit/:version_id', function($version_id) {
@@ -65,6 +73,10 @@
     //Tallennus (kaikki edellisistä kutsuvat tätä)
     $routes->post('/page/save', function() { 
         ArticleController::saveArticle();
+    });
+    //Moderaattoritoiminnot... (aseta aktiiviseksi, readonly, jne...)
+    $routes->get('/page/save', function() { 
+        ArticleController::saveArticleBits();
     });
     
     

@@ -56,14 +56,15 @@ class LanguageController extends BaseController{
             }
         }
         if (isset($_POST["new_name"]) and isset($_POST["new_shortcode"])){
-            $language=new Language(array("name"=>$_POST["new_name"], "shortcode"=>$_POST["new_shortcode"]));
+            $language=new Language(array("name"=>$_POST["new_name"], "shortcode"=>$_POST["new_shortcode"], "id"=>-1));
+            echo "QAQ";
             $errors_t=$language->errors();
             if (count($errors_t)==0){
                 $language->saveAsNew();
             }$errors=array_merge($errors, $errors_t);
         }
         if (count($errors)){
-            $errortxt="Yhteensä ".count($errors)." virhettä. \n";
+            $errortxt="".count($errors)." errors. \n";
             foreach($errors as $error){
                 $errortxt.=$error." \n";
             }
