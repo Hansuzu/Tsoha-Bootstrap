@@ -78,7 +78,7 @@ class UserController extends BaseController{
             $data["username"]=$_POST["username"];
             $data["email"]=$_POST["email"];
             if ($_POST["password"]!=$_POST["password2"]){
-                $data["error_message"]="Salasanat eivät täsmää";
+                $data["error_message"]="Passwords do not match";
             }else{
                 $errors=self::signup($_POST["username"], $_POST["email"], $_POST["password"]);
                 if (count($errors)){

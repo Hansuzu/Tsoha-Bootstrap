@@ -6,7 +6,7 @@
 \graphicspath{ {imgs/} }
 
 \title{Tietokantasovellus-harjoitustyön dokumentaatio}
-
+\usepackage{hyperref}
 
 \date{\today}
 \begin{document}
@@ -164,10 +164,10 @@
         Lisäksi artikkelikeskustelusivulla on mahdollisuus kirjoittaa viestejä vain rekisteröityneillä käyttäjillä.\\
         Käyttäjäsivulla puolestaan moderaattori ja admin-oikeuksilla varustetut käyttäjät voivat muuttaa käyttäjän oikeuksia. \\
    \section{Asennustiedot}
-        Kopioi tiedostot, aja \texttt{php composer.phar dump-autoload} ja \texttt{create_tables.sh}. Asentaminen on säilytetty sellaisena,
+        Kopioi tiedostot, aja \texttt{php composer.phar dump-autoload} ja luo tietokantataulut. Asentaminen on säilytetty sellaisena,
         kuin se oli käytetyssä Tsoha-Bootstrap-rungossa.
    \section{Käynnistys-käyttö-ohje}
-        http://haih.users.cs.helsinki.fi/tsoh \\
+        \url{http://haih.users.cs.helsinki.fi/tsoh} \\
         Käyttäjätunnus admin: \texttt{root} \\
         Käyttäjätunnus moderaattori: \texttt{moderator} \\
         Käyttäjätunnus tavallinen käyttäjä: \texttt{user} \\ 
