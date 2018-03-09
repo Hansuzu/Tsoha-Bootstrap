@@ -159,6 +159,19 @@ class Article extends BaseModel{
         }
         return $articles;    
     }
+    
+    public static function removeAllWithLanguage($language_id){
+        $query=DB::connection()->prepare("SELECT id FROM Article WHERE language_id=:language_id");
+        $query->execute(array("language_id"=>$language_id));
+        $rows=$query->fetchAll();
+        $articles=array();
+        foreach ($rows as $row){
+            ArticleVersion::removeArticle($row["id"]);
+        }
+        $query=DB::connection()->prepare("DELETE FROM Article WHERE language_id=:language_id");
+        $query->execute(array("language_id"=>$language_id));
+        return $articles;  
+    }
 }
 
 

@@ -2,6 +2,9 @@
 
 {% block leftbar %}
     <b>Languages:</b><br>
+    {% for version in versions %}
+        <a href="{{base_path}}/page/discussion/{{version.language.shortcode}}/{{version.name}}/{{version.id}}">{{version.language.name}}</a><br>
+    {% endfor %}
 {% endblock %}
 
 {% block content %}
@@ -11,12 +14,17 @@
         {% for message in messages %}
             <div class="messagebox">
                 <a href="{{base_path}}/user/{{message.username}}"><b>{{message.username}}</b></a> {{message.time}} {% if message.time!=message.edited %}<i>({{message.edited}})</i>{% endif %}
+                {% if user_logged_in %}
+                    {% if user_logged_in.id==message.user_id or user_logged_in.is_moderator %}
+                        <a href="{{base_path}}/page/discussion/{{article.language.shortcode}}/{{article.name}}/{{article.id}}?remove={{message.id}}">Remove</a>
+                    {% endif %}
+                {% endif %}
                 <div class="message">
                     {{message.message}}
                 </div>
             </div>
         {% endfor %}
-        {% if user_logged_in %}
+        {% if user_logged_in and user_logged_in.messages_allowed %}
             <form method="post" action="{{base_path}}/page/discussion/{{article.language.shortcode}}/{{article.name}}/{{article.id}}">
                 <div class="messagebox">
                     <b>Write a message</b>

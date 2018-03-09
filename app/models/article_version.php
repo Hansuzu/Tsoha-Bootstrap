@@ -180,6 +180,11 @@ class ArticleVersion extends BaseModel{
         }
         return $versions;
     }
+    
+    public static function removeArticle($article_id){
+        $query=DB::connection()->prepare("DELETE FROM ArticleVersion WHERE article_id=:article_id");
+        $query->execute(array("article_id" => $article_id));
+    }
 }
 
 

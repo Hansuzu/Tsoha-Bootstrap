@@ -290,32 +290,51 @@ class ArticleController extends BaseController{
     
     
     public static function checkSubmittedMessages($article){
+        $user=self::get_user_logged_in();
         $errors=array();
+        if (isset($_GET["remove"])){
+            $message=Message::findById($_GET["remove"]);
+            if ($message){
+                if ($user){
+                    if ($user->id==$message->user_id or $user->isModerator()){
+                        $message->erase();
+                        $article->loadLanguage();
+                        $language=$article->language;
+                        Redirect::to("/page/discussion/".$language->shortcode."/".$article->name."/".$article->id, array("message"=>"Message removed"));
+                    }else $errors[]="You have no right to remove this message.";
+                }else $errors[]="You must be logged in.";
+            }else $errors[]="Cannot remove message: it does not exist.";
+        }
         if (isset($_POST["message"])){
-            $user=self::get_user_logged_in();
             if ($user){
                 if ($user->messagesAllowed()){
                     $message=new Message(array("article_id"=>$article->id, "user_id"=>$user->id, "message"=>$_POST["message"]));
-                    $errors=$message->errors();
+                    $errors=array_merge($errors, $message->errors());
                     if (count($errors)==0){
                         $message->saveAsNew();
+                        $messages[]="Message sent.";
                     }
                 }else $errors[]="Your account has no rights to write messages here.";
             }else $errors[]="You must be logged in to write messges";
         }
-        return $errors;
+        if (count($errors)==0){
+            $error="";
+        }else{
+            $error=$errors[0];
+        }
+        return $error;
     }
     //Article discussion page
     public static function viewDiscussion($article){
-        $errors=self::checkSubmittedMessages($article);
+        $error=self::checkSubmittedMessages($article);
         $article->load(-2);
         $messages=Message::findAllInArticle($article->id);
-        //Get discussions on different languages
+        //Get discussions links on different languages
         $versions=Article::findByAbstractId($article->abstract_id);
         foreach($versions as $version){
             $version->load();
         }
-        View::make("article_discussion.html", array("messages"=>$messages, "versions"=>$versions, "article"=>$article, "error_messages"=>$errors));
+        View::make("article_discussion.html", array("messages"=>$messages, "versions"=>$versions, "article"=>$article, "error_message"=>$error));
     }
     public static function viewDiscussionByNameAndLanguage($languageShortCode, $articleName){
         $articles=array();

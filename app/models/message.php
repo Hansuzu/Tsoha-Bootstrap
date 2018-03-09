@@ -68,7 +68,7 @@ class Message extends BaseModel{
     }
     
     public static function findById($message_id){
-        $query=DB::connection()->prepare("SELECT * FROM Message WHERE message_id=:message_id LIMIT 1");
+        $query=DB::connection()->prepare("SELECT * FROM Message WHERE id=:message_id LIMIT 1");
         $query->execute(array("message_id"=>$message_id));
         $row=$query->fetch();
         if ($row){

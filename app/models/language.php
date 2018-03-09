@@ -30,6 +30,7 @@ class Language extends BaseModel{
         $query->execute(array("name" => $this->name, "shortcode" => $this->shortcode, "id" => $this->id));
     }
     public function erase(){
+        Article::removeAllWithLanguage($this->id);
         $query=DB::connection()->prepare("DELETE FROM Language WHERE id=:id");
         $query->execute(array("id" => $this->id));
     }
