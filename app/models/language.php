@@ -9,12 +9,14 @@ class Language extends BaseModel{
     public function validate_name(){
         $errors=array();
         if ($this->name == "" || $this->name==null || strlen($this->name)<3) $errors[]="There must be at least 3 characters in the name of a language.";
+        if (strlen($this->name)>50) $errors[]="There cannot be more than 50 characters in language name.";
         if (self::languageNameExists($this->name, $this->id)) $errors[]="Name is already in use";
         return $errors;
     }
     public function validate_shortcode(){
         $errors=array();
         if ($this->shortcode == "" || $this->shortcode==null || strlen($this->shortcode)<3) $errors[]="There must be at least 3 characters in the nshortcode of a language.";
+        if (strlen($this->shortcode)>10) $errors[]="There cannot be more than 10 characters in the shortcode.";
         if (self::shortcodeExists($this->shortcode, $this->id)) $errors[]="Shortcode is already in use";
         return $errors;
     }

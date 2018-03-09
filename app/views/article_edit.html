@@ -14,6 +14,10 @@
     {% else %}
         <h1>Create a new article</h1>
     {% endif %}
+    <i>Voit lisätä linkin toiseen artikkeliin lisäämällä artikkelin nimi tuplahakasulkeisiin [[artikkeli]] tai [[artikkeli|näytettävä teksti]]. <br>
+    Lisää tämä artikkeli toisen artikkelin alaluokaksi lisäämällä artikkelin nimi tupla-aaltosulkeissa {{}} <br>
+    Tekstistä voi tehdä lihavoitua [b]-tageilla ja kursivoitua [i]-tageilla
+    </i>
     <form method="post" action="{{base_path}}/page/save">
         <input type="hidden" name="parent_version" value="{{version.id}}"></input>
         {% if version.id!=-1 %}

@@ -39,6 +39,14 @@ class ArticleSuperclass extends BaseModel{
         $query=DB::connection()->prepare("DELETE FROM ArticleSuperclass WHERE subarticle_id=:subarticle_id");
         $query->execute(array("subarticle_id" => $article_id));        
     }
+    public static function eraseSubArticles($article_id){
+        $query=DB::connection()->prepare("DELETE FROM ArticleSuperclass WHERE suparticle_id=:suparticle_id");
+        $query->execute(array("suparticle_id" => $article_id));        
+    }
+    public static function removeArticle($article_id){
+        self::eraseSupArticles($article_id);
+        self::eraseSubArticles($article_id);
+    }
     
     
     public static function all(){

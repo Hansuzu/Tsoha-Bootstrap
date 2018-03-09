@@ -20,18 +20,22 @@ class ArticleController extends BaseController{
     //and $version (integer, -1 means that active version will be loaded)
     public static function viewArticle($article, $version=-1){ 
         $article->load($version);
-        $article->version->contents_motor(); //generate the html
-        
-        //Get versions of this article on different languages
-        $versions=Article::findByAbstractId($article->abstract_id);
-        foreach($versions as $version){
-            $version->load();
+        if (!$article->version){
+            View::make("article_confusion.html");
+        }else{
+            $article->version->contents_motor(); //generate the html
+            
+            //Get versions of this article on different languages
+            $versions=Article::findByAbstractId($article->abstract_id);
+            foreach($versions as $version){
+                $version->load();
+            }
+            //Find suparticles and subarticles
+            $suparticles=ArticleSuperclass::findSupArticles($article->id);
+            $subarticles=ArticleSuperclass::findSubArticles($article->id);
+            
+            View::make('article.html', array("article"=>$article, "versions"=>$versions, "suparticles"=>$suparticles, "subarticles"=>$subarticles));
         }
-        //Find suparticles and subarticles
-        $suparticles=ArticleSuperclass::findSupArticles($article->id);
-        $subarticles=ArticleSuperclass::findSubArticles($article->id);
-        
-        View::make('article.html', array("article"=>$article, "versions"=>$versions, "suparticles"=>$suparticles, "subarticles"=>$subarticles));
     }
     
     public static function viewArticleHistory($article){
@@ -138,7 +142,7 @@ class ArticleController extends BaseController{
     public static function createArticle() { //view new-Article edit-page 
         self::check_logged_in();
         $user=self::get_user_logged_in();
-        if (! $user->editAllowed())   Redirect::to("/page/version/".$version_id);
+        if (! $user->editAllowed())   Redirect::to("/page", array("error_message"=>"User has not right to create new articles."));
         
         $newArticle=new Article(array());
         $newVersion=new ArticleVersion(array("id"=>-1));
@@ -206,10 +210,11 @@ class ArticleController extends BaseController{
                                     "name"=>$title));
         $errors=$article->errors();
         if (count($errors)==0){ //TODO: check also errors in version before saving article...
-            $article->saveAsNew();
-            $version=new ArticleVersion(array("article_id" => $article->id, "parent_id" => null, "user_id" => self::get_user_logged_in()->id, "contents" => $contents));
+            $version=new ArticleVersion(array("article_id" => null, "parent_id" => null, "user_id" => self::get_user_logged_in()->id, "contents" => $contents));
             $errors=array_merge($errors, $version->errors());
-            if (count($errors)==0){
+            if (count($errors)==1){
+                $article->saveAsNew();
+                $version=new ArticleVersion(array("article_id" => $article->id, "parent_id" => null, "user_id" => self::get_user_logged_in()->id, "contents" => $contents));
                 $version->saveNewVersion();
                 $version->setAsActiveVersion();
                 Redirect::to('/page/view/'.$language->shortcode."/".$title."/".$article->id, array('message' => '10-4'));
@@ -250,11 +255,19 @@ class ArticleController extends BaseController{
                     Redirect::to("/page/view/".$language->shortcode."/".$article->name."/".$article->id, array("message"=>"Article set in readonly state."));
                 }
             }
+            if (isset($_GET["remove"])){
+                $article=Article::findById($_GET["remove"]);
+                if ($article){
+                    if ($article->remove()){
+                        Redirect::to("/page", array("message"=>"Article removed."));
+                    }
+                }
+            }
         }else $errors[]="You must log in as a moderator to do that...";
         $error_message=$errors[0];
-        Redirect::to('page/', array("error_message"=>$error_message));
+        Redirect::to('/page', array("error_message"=>$error_message));
     }
-    public static function saveArticle(){ //Article save page
+    public static function saveArticle(){ //Save article
         self::check_logged_in();
         
         $errors=array();
@@ -283,7 +296,7 @@ class ArticleController extends BaseController{
         $error_message="Something went terribly wrong, but I have no idea what. (Error which doesn't yet know how to tell its name)";
         if (count($errors)) $error_message=$errors[0]; //show only first error
         if ($parent_version>=0)  Redirect::to('/page/version/'.$parent_version, array("error_message"=>$error_message));
-        else Redirect::to('page/', array("error_message"=>$error_message));
+        else Redirect::to("/page", array("error_message"=>$error_message));
     }
     
     

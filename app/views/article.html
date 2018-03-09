@@ -23,6 +23,7 @@
             {% else %}
                 | <a href="{{base_path}}/page/save?make_readonly={{article.id}}">Make this article readonly</a>
             {% endif %}
+            | <a href="{{base_path}}/page/save?remove={{article.id}}">Remove this article</a>
         {% endif %}
     {% endif %}
 

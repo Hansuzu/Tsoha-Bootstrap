@@ -24,12 +24,14 @@ class Person extends BaseModel{
     public function validate_username(){
         $errors=array();
         if (strlen($this->username)<1) $errors[]="There must be more than 0 characters in the usernmae.";
+        if (strlen($this->username)>50) $errors[]="There cannot be more than 50 characters in the username";
         if (self::userWithUsernameExists($this->username)) $errors[]="Username is already taken.";
         return $errors;
     }
     public function validate_email(){
         $errors=array();
-        if (!preg_match("/^[a-zA-Z0-9]+@[a-zA-Z0-9]\.[a-zA-Z0-9]$/", $this->email)) $errors[]="Invalid email.";
+        if (!preg_match("/^[a-zA-Z0-9_\.]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/", $this->email)) $errors[]="Invalid email.";
+        if (strlen($this->username)>50) $errors[]="There cannot be more than 50 characters in the email.";
         if (self::userWithEmailExists($this->email)) $errors[]="There is already a user registered with this email.";
         return $errors;
     }

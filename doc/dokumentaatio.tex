@@ -25,8 +25,8 @@
     \subsection{Käyttäjäryhmät}
       \textbf{Jokamies} on kuka tahansa, joka käyttää järjestelmää. Jokamies voi lukea artikkeleita ja keskusteluja, mutta ei muokata artikkeleita eikä osallistua keskusteluun. Jokamies voi rekisteröityä käyttäjäksi ja tietysti kirjautua sisään, jos on rekisteröitynyt. Kaikki käyttäjäryhmät ovat myös jokamiehiä.\\ \\
       \textbf{Käyttäjä} on kuka tahansa kirjautunut käyttäjä. Käyttäjällä on artikkeleihin muokkausoikeus ja mahdollisuus osallistua artikkelien keskusteluihin. Nämä oikeudet voidaan tosin myös poistaa käyttäjältä. \\ \\
-      \textbf{Moderaattori} on käyttäjä, jolla on lisäksi oikeus poistaa ja muokata muiden käyttäjien viestejä ja vaihtaa artikkelista näytettävää versiota versiopuusta. \\ \\
-      \textbf{Ylläpitäjä} on käyttäjä, jolla on moderointioikeuksien lisäksi oikeus muuttaa muiden käyttäjien oikeuksia, muokata kielitietokantaa.
+      \textbf{Moderaattori} on käyttäjä, jolla on lisäksi oikeus poistaa muiden käyttäjien viestejä, muuttaa muiden käyttäjien muokkaus- ja viestinkirjoitusoikeuksia, vaihtaa artikkelista näytettävää versiota versiopuusta ja muuttaa artikkelin readonly-bittiä, sekä poistaa artikkeleita ja muokata kielitietokantaa. \\ \\
+      \textbf{Ylläpitäjä} on käyttäjä, jolla on moderointioikeuksien lisäksi oikeus muuttaa muiden käyttäjien moderointi- ja ylläpitooikeuksia.
     \subsection{Käyttötapaukset}
       \textbf{Jokamiehen käyttötapaukset:} \\
         -Artikkeleiden lukeminen \\
@@ -38,17 +38,15 @@
         -Artikkelin muokkaaminen: Artikkelista on mahdollista muokata erikielisiä versioita. Muokattaessa artikkelin yläluokka-artikkeleita on mahdollista lisätä ja poistaa. (Alaluokat määräytyvät sen perusteella, mistä artikkelista kyseinen artikkeli on lisätty yläluokaksi) \\
         -Uuden artikkelin lisääminen \\
         -Viestin kirjoittaminen artikkelin keskusteluun. \\
-        -Oman viestin muokkaaminen \\
         -Oman viestin poistaminen \\ \\
       \textbf{Moderaattorin käyttötapaukset:}\\
         Käyttäjän käyttötapausten lisäksi:\\
-        -Artikkelin version vaihtaminen (versioksi on mahdollista vaihtaa myös "nollaversio", mikä vastaa artikkelin poistamista) \\
-        -Keskusteluissa muiden viestien muokkaaminen \\
+        -Artikkelin version vaihtaminen ja artikkelien poistaminen. \\
+        -Kielitietokannan muokkaaminen \\
         -Keskusteluissa muiden viestien poistaminen \\ \\
       \textbf{Ylläpitäjän käyttötapaukset:}\\
         Moderaattorin käyttötapausten lisäksi:\\
         -Muiden käyttäjien käyttöoikeuksien muuttaminen \\
-        -Kielitietokannan muokkaaminen \\
 
   \newpage
   \section{Järjestelmän tietosisältö}
@@ -165,10 +163,18 @@
         \makebox[\textwidth]{\includegraphics[width={\textwidth}]{kjkmp.png}} \\ \\
         Lisäksi artikkelikeskustelusivulla on mahdollisuus kirjoittaa viestejä vain rekisteröityneillä käyttäjillä.\\
         Käyttäjäsivulla puolestaan moderaattori ja admin-oikeuksilla varustetut käyttäjät voivat muuttaa käyttäjän oikeuksia. \\
-        
-        
-
+   \section{Asennustiedot}
+        Kopioi tiedostot, aja \texttt{php composer.phar dump-autoload} ja \texttt{create_tables.sh}. Asentaminen on säilytetty sellaisena,
+        kuin se oli käytetyssä Tsoha-Bootstrap-rungossa.
+   \section{Käynnistys-käyttö-ohje}
+        http://haih.users.cs.helsinki.fi/tsoh \\
+        Käyttäjätunnus admin: \texttt{root} \\
+        Käyttäjätunnus moderaattori: \texttt{moderator} \\
+        Käyttäjätunnus tavallinen käyttäjä: \texttt{user} \\ 
+        Käyttäjien salasanat ovat tyhjiä.
+    
 \end{document}
+\grid
 \grid
 \grid
 \grid

@@ -13,6 +13,7 @@ class Article extends BaseModel{
     public function validate_name(){
         $errors=array();
         if ($this->name == "" || $this->name==null || strlen($this->name)<3) $errors[]="There must be at least 3 characters in the name of an article.";
+        if (strlen($this->name)>100) $errors[]="There cannot be more than 100 characters in the name of an article.";
         return $errors;
     }
     public function validate_language(){
@@ -78,6 +79,18 @@ class Article extends BaseModel{
         if ($version==-1) self::loadActiveVersion();
         else if ($version>=0) self::loadVersion($version);
     }
+    public function remove(){
+        $query=DB::connection()->prepare("SELECT id FROM Article WHERE id=:id");
+        $query->execute(array("id"=>$this->id));
+        if ($row=$query->fetch()){
+            ArticleVersion::removeArticle($this->id);
+            ArticleSuperclass::removeArticle($this->id);
+            $query=DB::connection()->prepare("DELETE FROM Article WHERE id=:id");
+            $query->execute(array("id"=>$this->id));
+            return true;
+        }
+        return false;
+    }
     
     public static function all(){
         $query=DB::connection()->prepare("SELECT * FROM Article");
@@ -94,20 +107,28 @@ class Article extends BaseModel{
         }
         return $articles;
     }
-    
+    public static function test($a, $b){
+        $a=preg_replace("/[^a-z]+/i", "", strtolower($a));
+        $b=preg_replace("/[^a-z]+/i", "", strtolower($b));
+        if (strlen($a)==0){
+        }else if (strlen($b)==0){
+            return true;
+        }else if ((strpos($a, $b)) !== false){
+            return true;
+        }
+        return false;
+    }
     public static function search($terms){
         $articles=Article::all();
         $result=array();
         foreach($articles as $article){
-            $a=strtolower($article->name);
-            $b=strtolower($terms);
-            $a=preg_replace("/[^a-z]+/i", "", $a);
-            $b=preg_replace("/[^a-z]+/i", "", $b);
-            if (strlen($a)==0)continue;
-            else if (strlen($b)==0){
+            $article->loadActiveVersion();
+            if (self::test($article->name, $terms)){
                 $result[]=$article;
-            }else if ((strpos($a, $b)) !== false){
-                $result[]=$article;
+            }else if ($article->version){
+                if (self::test($article->version->contents, $terms)){
+                    $result[]=$article; 
+                }
             }
         }
         return $result;
@@ -159,7 +180,6 @@ class Article extends BaseModel{
         }
         return $articles;    
     }
-    
     public static function removeAllWithLanguage($language_id){
         $query=DB::connection()->prepare("SELECT id FROM Article WHERE language_id=:language_id");
         $query->execute(array("language_id"=>$language_id));
@@ -167,6 +187,7 @@ class Article extends BaseModel{
         $articles=array();
         foreach ($rows as $row){
             ArticleVersion::removeArticle($row["id"]);
+            ArticleSuperclass::removeArticle($row["id"]);
         }
         $query=DB::connection()->prepare("DELETE FROM Article WHERE language_id=:language_id");
         $query->execute(array("language_id"=>$language_id));
